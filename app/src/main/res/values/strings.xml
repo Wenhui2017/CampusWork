@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">CampusWork</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="drawer_home">首页</string>
+    <string name="drawer_news">最新兼职</string>
+    <string name="drawer_person">个人中心</string>
+    <string name="drawer_tool">实用功能</string>
+
+
+
+</resources>
