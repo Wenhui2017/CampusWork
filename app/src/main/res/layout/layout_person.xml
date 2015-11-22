@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/layout_person_head"
+        android:layout_width="match_parent"
+        android:layout_height="140dp" />
+
+    <View style="@style/bulk_light_gray" />
+
+    <include
+        layout="@layout/layout_person_center"
+        android:layout_width="match_parent"
+        android:layout_height="90dp" />
+
+    <View style="@style/vertical_line" />
+
+    <View style="@style/bulk_light_gray" />
+
+    <View style="@style/vertical_line" />
+
+    <include
+        layout="@layout/layout_person_end"
+        android:layout_width="match_parent"
+        android:layout_height="160dp" />
+
+</LinearLayout>

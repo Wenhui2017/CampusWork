@@ -9,6 +9,21 @@
     <string name="drawer_news">最新兼职</string>
     <string name="drawer_person">个人中心</string>
     <string name="drawer_tool">实用功能</string>
+<!--个人中心-->
+    <string name="d11">亲，马上去完善简历吧</string>
+    <string name="d12">未实名</string>
+    <string name="d21">我的钱包</string>
+    <string name="d22">我的简直保险</string>
+    <string name="d31">我的申请</string>
+    <string name="d41">已报名</string>
+    <string name="d42">已录用</string>
+    <string name="d43">已到岗</string>
+    <string name="d44">已结算</string>
+    <string name="d51">我的收藏</string>
+    <string name="d61">实名认证</string>
+    <string name="d71">我的信用</string>
+    <string name="d81">意见反馈</string>
+    <string name="d91">更多</string>
 
 
 
