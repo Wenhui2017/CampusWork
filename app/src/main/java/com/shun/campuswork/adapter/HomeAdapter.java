@@ -41,7 +41,7 @@ public class HomeAdapter extends MyBaseAdapter<JobInfo> {
                     holder = (HomeHolder) convertView.getTag();
                 }
                 if (holder != null) {
-                    holder.initDate(mDateList);
+                    holder.initDate(mDateList.get(position-1));
                 }
             }
         }

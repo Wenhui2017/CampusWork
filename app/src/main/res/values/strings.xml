@@ -4,6 +4,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="text_two_line">这是详情这是详情这是详情这这是详情这是详情这是详情这这是详情这是详情这是详情这这是详情这是详情这是详情这这是详情这是详情这是详情这这是详情这是详情这是详情这这是详情这是详情这是详情这</string>
+
+
     <string name="action_settings">Settings</string>
     <string name="drawer_home">首页</string>
     <string name="drawer_news">最新兼职</string>
@@ -24,6 +27,7 @@
     <string name="d71">我的信用</string>
     <string name="d81">意见反馈</string>
     <string name="d91">更多</string>
+
 
 
 

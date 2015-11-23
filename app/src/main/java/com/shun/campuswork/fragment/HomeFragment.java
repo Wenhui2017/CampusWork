@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
     private HomeFragment() {
     }
 
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initDate();
@@ -57,6 +57,5 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < 20; i++) {
             mJobInfoList.add(new JobInfo("第."+i+".个"));
         }
-        Log.w("输出", mJobInfoList.toString());
     }
 }

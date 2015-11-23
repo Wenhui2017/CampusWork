@@ -4,9 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
+
+    <com.shun.campuswork.view.MyListView
         android:id="@+id/lv_home"
+        android:listSelector="@android:color/transparent"
+        android:footerDividersEnabled="false"
+        android:divider="@null"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </ListView>
+    </com.shun.campuswork.view.MyListView>
 </LinearLayout>

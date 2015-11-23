@@ -9,5 +9,9 @@
     <color name="line">#eee</color>
     <color name="transparent">#00000000</color>
     <color name="orange">#f06b0a</color>
+<!--item_lv_home_content-->
+    <color name="tv_primary_color">#FF555555</color>
+
+    <color name="item_divider">#ffd7d7d7</color>
 
 </resources>
