@@ -1,66 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?><!-- 凡是以layout开头的属性 其实都是经过父容器批准才能生效  因为在listView 中 layout_height 无论写什么熟悉 都是包裹内容 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/card_view_margin"
-    android:foreground="?attr/selectableItemBackground"
-    card_view:cardCornerRadius="@dimen/card_view_corner_radius"
-    card_view:cardElevation="@dimen/card_view_elevation"
-    card_view:cardUseCompatPadding="true">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="105dp"
-        android:padding="6dp">
+        android:layout_height="110dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/list_item_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/index_timeline_item_iv"
-            android:layout_width="105dp"
-            android:layout_height="70dp"
+            android:id="@+id/home_iv_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_centerVertical="true"
-            android:scaleType="centerInside"
-            tools:src="@mipmap/ic_app_logo" />
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:id="@+id/index_timeline_item_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_toRightOf="@id/index_timeline_item_iv"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/tv_primary_color"
-            android:textSize="16sp"
-            tools:text="标题" />
+        <LinearLayout
+            android:id="@+id/item_top"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/index_timeline_item_content_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/index_timeline_item_title_tv"
-            android:layout_below="@id/index_timeline_item_title_tv"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:maxLines="5"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="14sp"
-            tools:text="概要" />
+            <TextView
+                android:id="@+id/home_tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="这是标题"
+                android:textColor="#ff333333"
+                android:textSize="16dp" />
+            <!--分割线-->
+            <View
+                android:id="@+id/v_divide"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/item_divider" />
 
-        <TextView
-            android:id="@+id/index_timeline_item_info_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/index_timeline_item_content_tv"
-            android:layout_marginTop="4dp"
-            android:gravity="bottom"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp"
-            tools:text="时间" />
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/home_tv_des"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:lines="2"
+                android:ellipsize="end"
+                android:textColor="#ff7a7a7a"
+                android:text="@string/text_two_line"
+                android:textSize="12dp" />
+        </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</FrameLayout>
