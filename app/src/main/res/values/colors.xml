@@ -9,9 +9,17 @@
     <color name="line">#eee</color>
     <color name="transparent">#00000000</color>
     <color name="orange">#f06b0a</color>
+    <color name="half_transparent">#55000000</color>
 <!--item_lv_home_content-->
     <color name="tv_primary_color">#FF555555</color>
 
     <color name="item_divider">#ffd7d7d7</color>
+
+    <!-- 下拉刷新-->
+    <color name="secondary_color">#29A8FF</color>
+    <color name="primary_color">#1D71B5</color>
+    <color name="next_product_title_color">#30D0DF</color>
+    <color name="next_product_count_bg">#948CF1</color>
+
 
 </resources>

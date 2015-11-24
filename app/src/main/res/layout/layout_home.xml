@@ -3,14 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-
-    <com.shun.campuswork.view.MyListView
-        android:id="@+id/lv_home"
-        android:listSelector="@android:color/transparent"
-        android:footerDividersEnabled="false"
-        android:divider="@null"
+    <!--下拉刷新-->
+    <com.shun.campuswork.view.MySwipeRefreshLayout
+        android:id="@+id/home_srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.shun.campuswork.view.MyListView>
+
+        <com.shun.campuswork.view.MyListView
+            android:id="@+id/lv_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:footerDividersEnabled="false"
+            android:listSelector="@android:color/transparent"></com.shun.campuswork.view.MyListView>
+    </com.shun.campuswork.view.MySwipeRefreshLayout>
 </LinearLayout>

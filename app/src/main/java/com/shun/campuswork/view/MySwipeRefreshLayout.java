@@ -1,33 +1,26 @@
 package com.shun.campuswork.view;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.ListView;
 
 /**
- * Created by shun99 on 2015/11/23.
+ * Created by shun99 on 2015/11/24.
  */
-public class MyListView extends ListView {
+public class MySwipeRefreshLayout extends SwipeRefreshLayout{
 
-    public MyListView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
-
-    public MyListView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public MyListView(Context context) {
+    public MySwipeRefreshLayout(Context context) {
         super(context);
     }
 
-    private float startX = 0;
+    public MySwipeRefreshLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
-    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.w("ls_输出",""+ev.getRawX());
+        Log.w("ls_输出", "" + ev.getRawX());
         getParent().requestDisallowInterceptTouchEvent(true);
         //只需这句话，让父类不拦截触摸事件就可以了。
         return super.dispatchTouchEvent(ev);

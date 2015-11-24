@@ -4,8 +4,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import com.shun.campuswork.domain.JobInfo;
-import com.shun.campuswork.holder.HomeHolder;
-import com.shun.campuswork.view.HomeHeaderViewPager;
+import com.shun.campuswork.holder.HomeContentHolder;
+import com.shun.campuswork.holder.HomeHeaderHolder;
 
 import java.util.List;
 
@@ -27,18 +27,18 @@ public class HomeAdapter extends MyBaseAdapter<JobInfo> {
     public View getView(int position, View convertView, ViewGroup parent) {
         switch (getItemViewType(position)) {
             case HEADER_ITEM: {
-                HomeHeaderViewPager myViewPager = new HomeHeaderViewPager();
-                myViewPager.init();
-                convertView = myViewPager.viewPager;
+                HomeHeaderHolder homeHeaderHolder = new HomeHeaderHolder();
+                convertView = homeHeaderHolder.getConvertView();
+                homeHeaderHolder.initDate();
                 return convertView;
             }
             default: {
-                HomeHolder holder;
+                HomeContentHolder holder;
                 if(convertView == null){
-                    holder = new HomeHolder();
+                    holder = new HomeContentHolder();
                     convertView = holder.getConvertView();
                 }else{
-                    holder = (HomeHolder) convertView.getTag();
+                    holder = (HomeContentHolder) convertView.getTag();
                 }
                 if (holder != null) {
                     holder.initDate(mDateList.get(position-1));

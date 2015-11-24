@@ -27,8 +27,7 @@
     <string name="d71">我的信用</string>
     <string name="d81">意见反馈</string>
     <string name="d91">更多</string>
-
-
+    <string name="loading_error"><![CDATA[网络不给力>_<,点击刷新<]]></string>
 
 
 </resources>

@@ -13,7 +13,7 @@ import com.shun.campuswork.tools.UiUtils;
 /**
  * Created by shun99 on 2015/11/22.
  */
-public class HomeHolder extends BaseHolder {
+public class HomeContentHolder extends BaseHolder {
     @ViewInject(R.id.home_iv_icon)
     private ImageView home_iv_icon;
     @ViewInject(R.id.home_tv_des)
@@ -23,7 +23,7 @@ public class HomeHolder extends BaseHolder {
 
     @Override
     protected void initView() {
-        mConvertView = UiUtils.inflate(R.layout.item_lv_home_content_1);
+        mConvertView = UiUtils.inflate(R.layout.item_lv_home_content);
         ViewUtils.inject(this, mConvertView);
         mConvertView.setTag(this);
     }
