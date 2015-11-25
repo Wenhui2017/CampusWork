@@ -21,5 +21,10 @@
     <color name="next_product_title_color">#30D0DF</color>
     <color name="next_product_count_bg">#948CF1</color>
 
+    <color name="grey"> #ebebeb</color>
+    <color name="darkgrey"> #C0C0C0</color>
+    <color name="red"> #FF0000</color>
+    <color name="darkyellow"> #FFCC33</color>
+
 
 </resources>

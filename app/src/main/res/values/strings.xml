@@ -29,5 +29,9 @@
     <string name="d91">更多</string>
     <string name="loading_error"><![CDATA[网络不给力>_<,点击刷新<]]></string>
 
+    <string name="gpsfollow">追随</string>
+    <string name="gpslocate">定位</string>
+    <string name="gpsrotate">旋转</string>
+
 
 </resources>
