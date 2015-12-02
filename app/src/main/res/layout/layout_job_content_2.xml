@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/job_item_1"
+            android:text="@string/job_day" />
+
+        <TextView
+            android:id="@+id/job_tv_workDay"
+            style="@style/job_item_2"
+            android:text="@string/job_type" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/job_item_1"
+            android:text="@string/job_time" />
+
+        <TextView
+            android:id="@+id/job_tv_workTime"
+            style="@style/job_item_2"
+            android:text="@string/job_type" />
+    </LinearLayout>
+</LinearLayout>

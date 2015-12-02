@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
     private void initDate() {
         mJobInfoList = new ArrayList<JobInfo>();
         for (int i = 0; i < 20; i++) {
-            mJobInfoList.add(new JobInfo("第." + i + ".个"));
+            mJobInfoList.add(new JobInfo());
         }
     }
 }

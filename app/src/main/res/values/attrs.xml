@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="text_image">
+        <attr name="view_title" format="string" />
+        <attr name="view_image" format="integer" />
+        <attr name="ll_background" format="integer" />
+    </declare-styleable>
+
+    <!--<attr name="view_image_on" format="integer" />-->
+    <!--<attr name="view_image_off" format="integer" />-->
+</resources>

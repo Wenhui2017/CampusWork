@@ -29,7 +29,6 @@ public class HomeContentHolder extends BaseHolder {
     }
 
     public void initDate(JobInfo jobInfo) {
-        home_tv_des.setText(jobInfo.name);
     }
 
 

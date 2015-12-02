@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@color/white"
+    android:paddingLeft="10dp">
+
+    <TextView
+        android:id="@+id/job_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="bottom"
+        android:text="华联超市促销员"
+        android:textColor="@color/orange"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/job_tv_area"
+            style="@style/item_news_bottom"
+            android:drawableLeft="@mipmap/location"
+            android:paddingLeft="2dp"
+            android:text="新华" />
+
+        <TextView
+            android:id="@+id/job_tv_time"
+            style="@style/item_news_bottom"
+            android:drawableLeft="@mipmap/history"
+            android:text="2015-10-11" />
+
+        <TextView
+            android:id="@+id/job_tv_type"
+            style="@style/item_news_bottom"
+            android:drawableLeft="@mipmap/money"
+            android:text="31" />
+    </LinearLayout>
+</RelativeLayout>

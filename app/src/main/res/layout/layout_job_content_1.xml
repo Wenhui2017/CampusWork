@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="175dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/job_ll_1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/news_item_height"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/job_item_1"
+            android:text="@string/job_type" />
+
+        <TextView
+            android:id="@+id/job_tv_type"
+            style="@style/job_item_2"
+            android:text="@string/job_type" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/job_ll_2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/news_item_height"
+        android:layout_below="@+id/job_ll_1"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/job_item_1"
+            android:text="@string/job_num" />
+
+        <TextView
+            android:id="@+id/job_tv_num"
+            style="@style/job_item_2"
+            android:text="@string/job_type" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/job_ll_3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/news_item_height"
+        android:layout_below="@+id/job_ll_2"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/job_item_1"
+            android:text="@string/job_salary" />
+
+        <TextView
+            android:id="@+id/job_tv_salary"
+            style="@style/job_item_2"
+            android:text="@string/job_type" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/job_ll_4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/news_item_height"
+        android:layout_below="@+id/job_ll_3"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/job_item_1"
+            android:text="@string/job_sex" />
+
+        <TextView
+            android:id="@+id/job_tv_sex"
+            style="@style/job_item_2"
+            android:text="@string/job_type" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/job_ll_5"
+        style="@style/vertical_line"
+        android:layout_below="@+id/job_ll_4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/news_item_height"
+        android:layout_below="@+id/job_ll_5"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/job_item_1"
+            android:text="@string/job_organ" />
+
+        <TextView
+            android:id="@+id/job_tv_company"
+            style="@style/job_item_2"
+            android:text="@string/job_type" />
+    </LinearLayout>
+</RelativeLayout>

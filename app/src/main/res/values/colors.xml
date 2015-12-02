@@ -4,13 +4,15 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="black">#000</color>
+    <color name="text_deep_black">#2d2e2f</color>
+    <color name="text_light_black">#b3b3b3</color>
     <color name="white">#ffffff</color>
     <color name="light_gray">#F5F5F5</color>
     <color name="line">#eee</color>
     <color name="transparent">#00000000</color>
     <color name="orange">#f06b0a</color>
     <color name="half_transparent">#55000000</color>
-<!--item_lv_home_content-->
+    <!--item_lv_home_content-->
     <color name="tv_primary_color">#FF555555</color>
 
     <color name="item_divider">#ffd7d7d7</color>
@@ -21,10 +23,18 @@
     <color name="next_product_title_color">#30D0DF</color>
     <color name="next_product_count_bg">#948CF1</color>
 
-    <color name="grey"> #ebebeb</color>
-    <color name="darkgrey"> #C0C0C0</color>
-    <color name="red"> #FF0000</color>
-    <color name="darkyellow"> #FFCC33</color>
+    <color name="grey">#ebebeb</color>
+    <color name="darkgrey">#C0C0C0</color>
+    <color name="red">#FF0000</color>
+    <color name="darkyellow">#FFCC33</color>
 
-
+    <color name="error_text">#a4adb7</color>
+    <!-- 招聘信息 -->
+    <color name="type1">#8b3c56</color>
+    <color name="type2">#f5d524</color>
+    <color name="type3">#7b50c3</color>
+    <color name="type4">#595959</color>
+    <color name="type5">#1eb331</color>
+    <color name="type6">#27b0a0</color>
+    <color name="type0">#ff483d</color>
 </resources>

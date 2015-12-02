@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">CampusWork</string>
+    <string name="empty"></string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -8,6 +9,7 @@
 
 
     <string name="action_settings">Settings</string>
+    <string name="action_position">模拟位置</string>
     <string name="drawer_home">首页</string>
     <string name="drawer_news">最新兼职</string>
     <string name="drawer_person">个人中心</string>
@@ -32,6 +34,45 @@
     <string name="gpsfollow">追随</string>
     <string name="gpslocate">定位</string>
     <string name="gpsrotate">旋转</string>
+
+    <!-- 招聘信息-->
+    <string name="news_time">选择时间</string>
+    <string name="news_type">选择类型</string>
+    <string name="new_error">没找到合适的信息请修改选择条件</string>
+    <string name="all">*全选</string>
+    <string name="work_time">非周末(周一--周五)</string>
+    <string name="weekend">周末(周六--周日)</string>
+    <string name="enter">确定</string>
+
+    <string name="type1">派单</string>
+    <string name="type2">礼仪</string>
+    <string name="type3">促销</string>
+    <string name="type4">家教</string>
+    <string name="type5">模特</string>
+    <string name="type6">演出</string>
+    <string name="type7">其他</string>
+
+    <!-- 工作详情页面-->
+    <string name="job_type">兼职类型:</string>
+    <string name="job_num">招聘人数:</string>
+    <string name="job_salary">工资待遇:</string>
+    <string name="job_sex">性别要求:</string>
+    <string name="job_organ">发布机构:</string>
+    <string name="job_day">工作时间:</string>
+    <string name="job_time">上班时段:</string>
+    <string name="job_content">工作内容:</string>
+    <string name="job_address">详细地址:</string>
+    <string name="job_person">联系人:</string>
+    <string name="job_tel">联系电话:</string>
+    <string name="job_warn">(提示: 凡收取费用的兼职，需谨慎)</string>
+    <string name="job_des"> 1.专业要求：投资、金融、工商管理、法学、马克思主义理论、国际关系、财务、会计、审计、统计、新闻传播、计算机科学与技术等相关专业。
+      2.英语听、说、读、写能力优秀，口语流利。
+      3.具备一定的组织协调能力，文字功底扎实。
+      4.有较强的团队合作和沟通能力，具有良好的职业道德与操守，进取心强、愿意主动融入企业文化。
+      5.部分岗位政治面貌要求为中共党员（包括预备党员）。</string>
+
+
+
 
 
 </resources>

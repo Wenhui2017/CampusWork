@@ -14,4 +14,6 @@
     <dimen name="card_view_corner_radius">6dp</dimen>
     <!--在低版本中设置了 CardElevation 之后 CardView 会自动留出空间供阴影显示-->
     <dimen name="card_view_margin">0dp</dimen>
+
+    <dimen name="news_item_height">35dp</dimen>
 </resources>

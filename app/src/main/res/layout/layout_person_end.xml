@@ -1,37 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:shun="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="180dp"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
-        style="@style/item_person_drawable"
-        android:drawableLeft="@mipmap/love"
-        android:text="@string/d51" />
+    <com.shun.campuswork.view.TextImageView
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        shun:view_title="@string/d51"
+        shun:view_image="@mipmap/love"
+        />
+    <com.shun.campuswork.view.TextImageView
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        shun:view_title="@string/d61"
+        shun:view_image="@mipmap/icon_crown1"
+        />
+    <com.shun.campuswork.view.TextImageView
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        shun:view_title="@string/d71"
+        shun:view_image="@mipmap/seed"
+        />
+    <com.shun.campuswork.view.TextImageView
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        shun:view_title="@string/d81"
+        shun:view_image="@mipmap/bulb"
+        />
 
-    <View style="@style/vertical_line" />
+    <!--<TextView-->
+        <!--style="@style/item_person_drawable"-->
+        <!--android:drawableLeft="@mipmap/love"-->
+        <!--android:text="@string/d51" />-->
 
-    <TextView
-        style="@style/item_person_drawable"
-        android:drawableLeft="@mipmap/icon_crown1"
-        android:text="@string/d61" />
+    <!--<View style="@style/vertical_line" />-->
 
-    <View style="@style/vertical_line" />
+   <!-- -->
 
-    <TextView
-        style="@style/item_person_drawable"
-        android:drawableLeft="@mipmap/seed"
-        android:text="@string/d71" />
+    <!--<TextView-->
+        <!--style="@style/item_person_drawable"-->
+        <!--android:drawableLeft="@mipmap/icon_crown1"-->
+        <!--android:text="@string/d61" />-->
 
-    <View style="@style/vertical_line" />
+    <!--<View style="@style/vertical_line" />-->
 
-    <TextView
-        style="@style/item_person_drawable"
-        android:drawableLeft="@mipmap/bulb"
-        android:text="@string/d81" />
+    <!--<TextView-->
+        <!--style="@style/item_person_drawable"-->
+        <!--android:drawableLeft="@mipmap/seed"-->
+        <!--android:text="@string/d71" />-->
 
-    <View style="@style/vertical_line" />
+    <!--<View style="@style/vertical_line" />-->
+
+    <!--<TextView-->
+        <!--style="@style/item_person_drawable"-->
+        <!--android:drawableLeft="@mipmap/bulb"-->
+        <!--android:text="@string/d81" />-->
+
+    <!--<View style="@style/vertical_line" />-->
 
 
 </LinearLayout>
