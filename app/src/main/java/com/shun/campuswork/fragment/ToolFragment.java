@@ -58,7 +58,7 @@ public class ToolFragment extends Fragment {
         Gson gson = new Gson();
         ArrayList<JobInfo> jsonList = new ArrayList<JobInfo>();
         Random random = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 8; i++) {
             JobInfo jobInfo = new JobInfo();
             jobInfo.city = "平顶山";
             jobInfo.area = citys[random.nextInt(2)];
@@ -68,6 +68,7 @@ public class ToolFragment extends Fragment {
             jobInfo.type = random.nextInt(6);
             jobInfo.salary = 11;
             jobInfo.releaseTime = System.currentTimeMillis();
+            jobInfo.isRecommend = true;
 
             jobInfo.name = "李经理";
             jobInfo.tel = "13245678963";

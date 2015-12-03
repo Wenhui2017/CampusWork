@@ -2,53 +2,89 @@ package com.shun.campuswork.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import com.shun.campuswork.R;
 import com.shun.campuswork.domain.JobInfo;
+import com.shun.campuswork.holder.BaseHolder;
+import com.shun.campuswork.holder.HomeCenterHolder;
 import com.shun.campuswork.holder.HomeContentHolder;
 import com.shun.campuswork.holder.HomeHeaderHolder;
+import com.shun.campuswork.holder.NewsHolder;
+import com.shun.campuswork.tools.UiUtils;
 
 import java.util.List;
 
 /**
  * Created by shun99 on 2015/11/22.
  */
-public class HomeAdapter extends MyBaseAdapter<JobInfo> {
-    /**
-     * @param isHeadDemo    是否有展示头
-     * @param isEndLoadMore 是否可以加载更多
-     * @param listView      使用改适配器的listview
-     * @param dateList
-     */
-    public HomeAdapter(boolean isHeadDemo, boolean isEndLoadMore, ListView listView, List<JobInfo> dateList) {
-        super(isHeadDemo, isEndLoadMore, listView, dateList);
+public class HomeAdapter extends BaseAdapter {
+    public ListView mListView;
+    public List<JobInfo> mDateList;
+
+    public HomeAdapter(ListView mListView, List<JobInfo> mDateList) {
+        this.mListView = mListView;
+        this.mDateList = mDateList;
+
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return super.getViewTypeCount() + 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return 1;
+        } else if (position == 1) {
+            return 2;
+        }
+        return 0;
+    }
+
+    @Override
+    public int getCount() {
+        return mDateList.size() + 2;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         switch (getItemViewType(position)) {
-            case HEADER_ITEM: {
+            case 1:
                 HomeHeaderHolder homeHeaderHolder = new HomeHeaderHolder();
                 convertView = homeHeaderHolder.getConvertView();
                 homeHeaderHolder.initDate();
                 return convertView;
-            }
-            default: {
-                HomeContentHolder holder;
-                if(convertView == null){
-                    holder = new HomeContentHolder();
+            case 2:
+                HomeCenterHolder homeCenterHolder = new HomeCenterHolder();
+                convertView = homeCenterHolder.getConvertView();
+                return convertView;
+            case 0:
+                NewsHolder holder;
+                if (convertView == null) {
+                    holder = new NewsHolder();
                     convertView = holder.getConvertView();
-                }else{
-                    holder = (HomeContentHolder) convertView.getTag();
+                } else {
+                    holder = (NewsHolder) convertView.getTag();
                 }
-                if (holder != null) {
-                    holder.initDate(mDateList.get(position-1));
-                }
-            }
-        }
+                holder.inteDate(mDateList.get(position - 2));
 
+                return convertView;
+        }
         return convertView;
     }
-
 }
 
 

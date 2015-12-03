@@ -3,7 +3,6 @@ package com.shun.campuswork.fragment;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lidroid.xutils.ViewUtils;
@@ -22,14 +20,11 @@ import com.shun.campuswork.activity.JobActivity;
 import com.shun.campuswork.dateprotocol.BaseProtocol;
 import com.shun.campuswork.dateprotocol.NewsDateProtocol;
 import com.shun.campuswork.domain.JobInfo;
-import com.shun.campuswork.global.GlobalContants;
-import com.shun.campuswork.tools.ColorUtils;
+import com.shun.campuswork.holder.NewsHolder;
 import com.shun.campuswork.tools.ToastUtils;
 import com.shun.campuswork.tools.UiUtils;
 import com.shun.campuswork.view.MyListView;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -71,7 +66,6 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
         newsDateProtocol.setOnDateListener(new BaseProtocol.OnDateListener<List<JobInfo>>() {
             @Override
             public void onRefresh(List<JobInfo> jobInfoList) {
-                Log.w("....", "" + jobInfoList);
                 if (jobInfoList != null) {
                     mJobInfoList = jobInfoList;
                     new_ll_error.setVisibility(View.GONE);
@@ -107,7 +101,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    public JobInfo getJonInfoForPosition(int position){
+    public JobInfo getJonInfoForPosition(int position) {
         return mJobInfoList.get(position);
     }
 
@@ -146,35 +140,17 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            NewsContentHolder holder;
+            NewsHolder newsHolder;
             if (convertView == null) {
-                convertView = UiUtils.inflate(R.layout.item_news_content);
-                holder = new NewsContentHolder();
-                holder.news_tv_area = (TextView) convertView.findViewById(R.id.news_tv_area);
-                holder.news_tv_relessed_time = (TextView) convertView.findViewById(R.id.news_tv_relessed_time);
-                holder.news_tv_type = (TextView) convertView.findViewById(R.id.news_tv_type);
-                holder.news_tv_title = (TextView) convertView.findViewById(R.id.news_tv_title);
-                holder.tv_background_text = (TextView) convertView.findViewById(R.id.tv_background_text);
-                holder.rl_background_color = (RelativeLayout) convertView.findViewById(R.id.rl_background_color);
-                convertView.setTag(holder);
+                newsHolder = new NewsHolder();
+                convertView = newsHolder.getConvertView();
             } else {
-                holder = (NewsContentHolder) convertView.getTag();
+                newsHolder = (NewsHolder) convertView.getTag();
             }
             JobInfo jobInfo = mJobInfoList.get(position);
-            holder.rl_background_color.setBackgroundColor(getResources().getColor(ColorUtils.getRessourceColor(jobInfo.type)));
-            holder.news_tv_title.setText(jobInfo.title);
-            holder.news_tv_area.setText(jobInfo.area + "");
-            holder.tv_background_text.setText(GlobalContants.getWorkType(jobInfo.type));
-            holder.news_tv_relessed_time.setText(jobInfo.releaseTime + "小时前");
-            holder.news_tv_type.setText(jobInfo.type + "");
+            newsHolder.inteDate(jobInfo);
             return convertView;
         }
-    }
-
-    static class NewsContentHolder {
-        public RelativeLayout rl_background_color;
-        public TextView tv_background_text;
-        public TextView news_tv_title, news_tv_area, news_tv_relessed_time, news_tv_type;
     }
 
     @Override

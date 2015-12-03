@@ -4,6 +4,9 @@
         <attr name="view_title" format="string" />
         <attr name="view_image" format="integer" />
         <attr name="ll_background" format="integer" />
+        <attr name="tv_title" format="string" />
+        <attr name="tv_des" format="string" />
+        <attr name="v_icon" format="integer" />
     </declare-styleable>
 
     <!--<attr name="view_image_on" format="integer" />-->

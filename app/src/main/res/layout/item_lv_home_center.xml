@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:shun="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <com.shun.campuswork.view.HomeCenterView
+                android:id="@+id/hcv_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                shun:tv_des="就是比较短的兼职啦"
+                shun:tv_title="短期兼职"
+                shun:v_icon="@mipmap/calendar" />
+
+            <View style="@style/horizontal_line" />
+
+            <com.shun.campuswork.view.HomeCenterView
+                android:id="@+id/hcv_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                shun:tv_des="就是比较短的兼职啦"
+                shun:tv_title="短期兼职"
+                shun:v_icon="@mipmap/tag" />
+
+        </LinearLayout>
+
+        <View style="@style/vertical_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <com.shun.campuswork.view.HomeCenterView
+                android:id="@+id/hcv_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                shun:tv_des="就是比较短的兼职啦"
+                shun:tv_title="短期兼职"
+                shun:v_icon="@mipmap/map" />
+
+            <View style="@style/horizontal_line" />
+
+            <com.shun.campuswork.view.HomeCenterView
+                android:id="@+id/hcv_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                shun:tv_des="就是比较短的兼职啦"
+                shun:tv_title="短期兼职"
+                shun:v_icon="@mipmap/car" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/orange"/>
+
+            <TextView
+                android:textColor="@color/text_deep_black"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="你可能感兴趣的" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <View style="@style/vertical_line" />
+
+
+</LinearLayout>

@@ -6,6 +6,9 @@ import java.util.Date;
  * Created by shun99 on 2015/11/23.
  */
 public class JobInfo {
+    public Long id = System.currentTimeMillis();//标识
+    public boolean isRecommend = false;//是否是推荐的
+
     public int type;//类型
     public boolean isLongWork;//长期兼职
 

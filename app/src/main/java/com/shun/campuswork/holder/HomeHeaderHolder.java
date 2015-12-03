@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.shun.campuswork.R;
+import com.shun.campuswork.tools.ToastUtils;
 import com.shun.campuswork.tools.UiUtils;
 import com.shun.campuswork.view.MyHeadViewPager;
 
@@ -23,10 +24,6 @@ import java.util.List;
 public class HomeHeaderHolder extends BaseHolder{
     @ViewInject(R.id.headlines_view_vp)
     private MyHeadViewPager viewPager;
-    @ViewInject(R.id.headlines_view_title_tv)
-    private TextView headlines_view_title_tv;
-    @ViewInject(R.id.headlines_view_number_tv)
-    private TextView headlines_view_number_tv;
 
     private List<View> mViewlist;
 
@@ -37,7 +34,7 @@ public class HomeHeaderHolder extends BaseHolder{
         viewPager = (MyHeadViewPager) mConvertView.findViewById(R.id.headlines_view_vp);
         //指定条目大小的方式二----必须设置布局参数
         int deviceHeight = UiUtils.getDeviceHeight();
-        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, deviceHeight / 4);
+        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, deviceHeight / 5);
         mConvertView.setLayoutParams(lp);
     }
 
@@ -53,10 +50,8 @@ public class HomeHeaderHolder extends BaseHolder{
         }
         viewPager.setAdapter(new MyPageAdapter());
 
-        headlines_view_title_tv.setText("这是什么");
-        headlines_view_number_tv.setText("1 / 4");
-
     }
+
 
     class MyPageAdapter extends PagerAdapter {
 
@@ -71,7 +66,14 @@ public class HomeHeaderHolder extends BaseHolder{
         }
 
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
+            View view = mViewlist.get(position);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickImage(position);
+                }
+            });
             container.addView(mViewlist.get(position));
             return mViewlist.get(position);
 
@@ -83,4 +85,13 @@ public class HomeHeaderHolder extends BaseHolder{
         }
 
     }
+
+    /**
+     * 处理viewpager中图片的点击事件
+     * @param position
+     */
+    public void clickImage(int position){
+        ToastUtils.makeText("position"+ position);
+    }
+
 }
