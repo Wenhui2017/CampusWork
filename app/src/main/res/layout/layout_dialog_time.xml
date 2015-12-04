@@ -10,6 +10,7 @@
     android:paddingRight="40dp">
 
     <CheckBox
+        android:id="@+id/cb_all"
         style="@style/item_check"
         android:checked="false"
         android:textColor="@color/orange"
@@ -21,9 +22,10 @@
         android:background="@color/line" />
 
     <CheckBox
+        android:id="@+id/cb_1"
         style="@style/item_check"
         android:checked="false"
-        android:text="@string/work_time" />
+        android:text="@string/short_time" />
 
     <View
         android:layout_width="match_parent"
@@ -31,9 +33,10 @@
         android:background="@color/line" />
 
     <CheckBox
+        android:id="@+id/cb_2"
         style="@style/item_check"
         android:checked="false"
-        android:text="@string/weekend" />
+        android:text="@string/long_time" />
 
     <View
         android:layout_width="match_parent"

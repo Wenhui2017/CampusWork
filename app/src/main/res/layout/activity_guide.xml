@@ -12,46 +12,46 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@mipmap/que"/>
+        android:background="@mipmap/guide"/>
 
     <com.shun.campuswork.view.TextPopView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        shun:tv_des="@string/que1"
-        shun:tv_title="Q:校园兼职上的兼职是否" />
+        shun:tv_des="@string/gui1"
+        shun:tv_title="防止黑中介骗取中介费" />
 
     <com.shun.campuswork.view.TextPopView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        shun:tv_des="@string/que2"
-        shun:tv_title="Q:咨询商家未得到回复" />
+        shun:tv_des="@string/gui2"
+        shun:tv_title="拒绝各种押金，保证金" />
 
     <com.shun.campuswork.view.TextPopView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        shun:tv_des="@string/que3"
-        shun:tv_title="Q:如何联系客服" />
+        shun:tv_des="@string/gui3"
+        shun:tv_title="远离传销，误入当止" />
 
     <com.shun.campuswork.view.TextPopView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        shun:tv_des="@string/que4"
-        shun:tv_title="@string/que44" />
+        shun:tv_des="@string/gui4"
+        shun:tv_title="做家教谨防被侵犯" />
 
     <com.shun.campuswork.view.TextPopView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        shun:tv_des="@string/que5"
-        shun:tv_title="@string/que55" />
+        shun:tv_des="@string/gui5"
+        shun:tv_title="扣取高额培训费" />
 
 </LinearLayout>

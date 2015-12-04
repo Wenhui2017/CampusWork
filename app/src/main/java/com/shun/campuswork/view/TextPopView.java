@@ -3,6 +3,7 @@ package com.shun.campuswork.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import com.shun.campuswork.R;
 
 /**
  * 自定义组合控件
+ * 此处处理了点击事件，就不能再调用处再次处理
  * Created by shun99 on 2015/12/2.
  */
 public class TextPopView extends LinearLayout {
@@ -46,11 +48,13 @@ public class TextPopView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if(isOpen){
-                    isOpen = true;
-                    v_icon.setBackgroundResource(R.mipmap.down);
-                }else {
                     isOpen = false;
                     v_icon.setBackgroundResource(R.mipmap.right);
+                    tv_des.setVisibility(GONE);
+                }else {
+                    isOpen = true;
+                    v_icon.setBackgroundResource(R.mipmap.down);
+                    tv_des.setVisibility(VISIBLE);
                 }
             }
         });
@@ -69,6 +73,7 @@ public class TextPopView extends LinearLayout {
         tv_title.setText(title);
         tv_des.setText(des);
         v_icon.setBackgroundResource(R.mipmap.right);
+        tv_des.setVisibility(GONE);
     }
 
 

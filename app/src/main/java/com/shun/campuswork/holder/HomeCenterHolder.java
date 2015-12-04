@@ -6,6 +6,7 @@ import android.view.View;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.shun.campuswork.R;
+import com.shun.campuswork.activity.GuideActivity;
 import com.shun.campuswork.activity.QuestionActivity;
 import com.shun.campuswork.fragment.HomeFragment;
 import com.shun.campuswork.tools.ToastUtils;
@@ -48,11 +49,13 @@ public class HomeCenterHolder extends BaseHolder implements View.OnClickListener
             case R.id.hcv_2:
                 break;
             case R.id.hcv_3:
+                HomeFragment.activity.startActivity(new Intent(UiUtils.getContext(), QuestionActivity.class));
                 break;
             case R.id.hcv_4:
+                HomeFragment.activity.startActivity(new Intent(UiUtils.getContext(), GuideActivity.class));
                 break;
         }
-        HomeFragment.activity.startActivity(new Intent(UiUtils.getContext(), QuestionActivity.class));
+
         ToastUtils.makeText(".." + v.getId());
     }
 }

@@ -32,8 +32,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                shun:tv_des="就是比较短的兼职啦"
-                shun:tv_title="短期兼职"
+                shun:tv_des="显然是较长的兼职啦"
+                shun:tv_title="长期兼职"
                 shun:v_icon="@mipmap/tag" />
 
         </LinearLayout>
@@ -51,8 +51,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                shun:tv_des="就是比较短的兼职啦"
-                shun:tv_title="短期兼职"
+                shun:tv_des="兼职经常遇到的噢哦"
+                shun:tv_title="常见问题"
                 shun:v_icon="@mipmap/map" />
 
             <View style="@style/horizontal_line" />
@@ -62,8 +62,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                shun:tv_des="就是比较短的兼职啦"
-                shun:tv_title="短期兼职"
+                shun:tv_des="认真阅读就不会上当"
+                shun:tv_title="防骗指南"
                 shun:v_icon="@mipmap/car" />
         </LinearLayout>
     </LinearLayout>
