@@ -34,10 +34,13 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 public class MainActivity extends BaseActivity implements AMapLocationListener,
         NavigationView.OnNavigationItemSelectedListener {
     public NoScrollViewPager vp_main_content;
-
+    public static MainActivity mainActivity = null;
 
     @Override
     public void init() {
+        if(mainActivity == null){
+            mainActivity = this;
+        }
         setContentView(R.layout.activity_main);
         initToolBar();
         initFloatingActionButton();
@@ -91,6 +94,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener,
         viewPagerAdapter.addFragment(ToolFragment.getInstance());
         viewPagerAdapter.addFragment(PersonFragment.getInstance());
         vp_main_content.setAdapter(viewPagerAdapter);
+        //vp_main_content.setCurrentItem(1);
     }
 
     /**
@@ -254,5 +258,10 @@ public class MainActivity extends BaseActivity implements AMapLocationListener,
                 mToolbar.getMenu().getItem(0).setTitle("定位失败");
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

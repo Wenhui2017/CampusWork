@@ -16,4 +16,6 @@
     <dimen name="card_view_margin">0dp</dimen>
 
     <dimen name="news_item_height">35dp</dimen>
+
+    <dimen name="enter_left">20dp</dimen>
 </resources>

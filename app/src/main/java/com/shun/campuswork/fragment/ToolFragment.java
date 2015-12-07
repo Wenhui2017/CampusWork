@@ -45,7 +45,6 @@ public class ToolFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String json = createDate();
-                textView.setText(json);
                 Log.w("json..", json + "...");
             }
         });
@@ -79,4 +78,5 @@ public class ToolFragment extends Fragment {
         }
         return gson.toJson(jsonList);
     }
+
 }

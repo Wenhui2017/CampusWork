@@ -6,6 +6,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.shun.campuswork.R;
 import com.shun.campuswork.domain.JobInfo;
+import com.shun.campuswork.fragment.HomeFragment;
 import com.shun.campuswork.fragment.NewsFragment;
 import com.shun.campuswork.global.GlobalContants;
 
@@ -41,6 +42,7 @@ public class JobActivity extends BaseActivity {
     private TextView job_tv_name;
 
     private int position;
+    private int mFlag;
     private JobInfo mJobInfo;
 
 
@@ -49,12 +51,17 @@ public class JobActivity extends BaseActivity {
         setContentView(R.layout.activity_jab);
         ViewUtils.inject(this);
         position = getIntent().getIntExtra("position", 0);
+        mFlag = getIntent().getIntExtra("flag", 0);
         initDate();
         initView();
     }
 
     private void initDate() {
-        mJobInfo = NewsFragment.getInstance().getJonInfoForPosition(position);
+        if (mFlag == 0) {
+            mJobInfo = HomeFragment.getInstance().getJonInfoForPosition(position);
+        } else if (mFlag == 1) {
+            mJobInfo = NewsFragment.getInstance().getJonInfoForPosition(position);
+        }
     }
 
     private void initView() {
@@ -62,7 +69,7 @@ public class JobActivity extends BaseActivity {
         job_tv_area.setText(mJobInfo.area);
         job_tv_time.setText(GlobalContants.getReleaseTime(mJobInfo.releaseTime));
         job_tv_type.setText(GlobalContants.getWorkType(mJobInfo.type));
-        job_tv_num.setText(mJobInfo.num+"");
+        job_tv_num.setText(mJobInfo.num + "");
         job_tv_salary.setText(GlobalContants.getSalary(mJobInfo.salary));
         job_tv_sex.setText(GlobalContants.getSex(mJobInfo.sex));
         job_tv_company.setText(mJobInfo.company);

@@ -7,8 +7,10 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.shun.campuswork.R;
 import com.shun.campuswork.activity.GuideActivity;
+import com.shun.campuswork.activity.MainActivity;
 import com.shun.campuswork.activity.QuestionActivity;
 import com.shun.campuswork.fragment.HomeFragment;
+import com.shun.campuswork.fragment.NewsFragment;
 import com.shun.campuswork.tools.ToastUtils;
 import com.shun.campuswork.tools.UiUtils;
 import com.shun.campuswork.view.HomeCenterView;
@@ -45,17 +47,19 @@ public class HomeCenterHolder extends BaseHolder implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.hcv_1:
+                MainActivity.mainActivity.vp_main_content.setCurrentItem(1);
+                NewsFragment.instance.chooseWork("0","a");
                 break;
             case R.id.hcv_2:
+                MainActivity.mainActivity.vp_main_content.setCurrentItem(1);
+                NewsFragment.instance.chooseWork("1", "a");
                 break;
             case R.id.hcv_3:
-                HomeFragment.activity.startActivity(new Intent(UiUtils.getContext(), QuestionActivity.class));
+                MainActivity.mainActivity.startActivity(new Intent(UiUtils.getContext(), QuestionActivity.class));
                 break;
             case R.id.hcv_4:
-                HomeFragment.activity.startActivity(new Intent(UiUtils.getContext(), GuideActivity.class));
+                MainActivity.mainActivity.startActivity(new Intent(UiUtils.getContext(), GuideActivity.class));
                 break;
         }
-
-        ToastUtils.makeText(".." + v.getId());
     }
 }

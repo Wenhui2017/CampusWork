@@ -1,6 +1,6 @@
 package com.shun.campuswork.fragment;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.shun.campuswork.R;
+import com.shun.campuswork.activity.JobActivity;
 import com.shun.campuswork.adapter.HomeAdapter;
 import com.shun.campuswork.dateprotocol.BaseProtocol;
 import com.shun.campuswork.dateprotocol.HomeDateProtocol;
@@ -30,7 +31,6 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
     private static HomeFragment instance = null;
-    public static Activity activity = null;
     private List<JobInfo> mJobInfoList;
 
     @ViewInject(R.id.lv_home)
@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     @ViewInject(R.id.new_ll_error)
     private LinearLayout new_ll_error;
+    private HomeAdapter mHomeAdapter;
 
     public static HomeFragment getInstance() {
         if (instance == null) {
@@ -54,24 +55,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = View.inflate(getContext(), R.layout.layout_home, null);
-        if(activity == null){
-            activity = getActivity();
-        }
         ViewUtils.inject(this, view);
         swipeRefreshLayout.setColorSchemeResources(GlobalContants.refreshColor);
+        //初始化界面
+        initUI();
+        //加载数据，更新界面
         initDate();
         initListener();
         return view;
+    }
+
+    private void initUI() {
+        mJobInfoList = new ArrayList<JobInfo>();
+        mHomeAdapter = new HomeAdapter(lv_home, mJobInfoList);
+        lv_home.setAdapter(mHomeAdapter);
     }
 
     private void initListener() {
         lv_home.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0 || position == 1){
-
+                if (position > 1) {
+                    clickItem(position-2);
                 }
-                ToastUtils.makeText("pos"+position);
             }
         });
         new_ll_error.setOnClickListener(this);
@@ -84,6 +90,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+    /**
+     * 点击news_lv_content的条目时
+     *
+     * @param position
+     */
+    private void clickItem(int position) {
+        Intent intent = new Intent(getActivity(), JobActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("flag", 0);
+        startActivity(intent);
+    }
+
 
     private void initDate() {
         HomeDateProtocol homeDateProtocol = new HomeDateProtocol(1);
@@ -91,12 +109,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onRefresh(List<JobInfo> jobInfoList) {
                 if (jobInfoList == null) {
-                    mJobInfoList = new ArrayList<JobInfo>();
-                    new_ll_error.setVisibility(View.VISIBLE);
-                    createSuccessView();
+                    createErrorView();
                 } else {
-                    mJobInfoList = jobInfoList;
-                    new_ll_error.setVisibility(View.GONE);
+                    //mJobInfoList = jobInfoList;
+                    mHomeAdapter.mDateList = jobInfoList;
                     createSuccessView();
                 }
             }
@@ -104,7 +120,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void createSuccessView() {
-        lv_home.setAdapter(new HomeAdapter(lv_home, mJobInfoList));
+        mHomeAdapter.notifyDataSetChanged();
+        new_ll_error.setVisibility(View.GONE);
+    }
+
+    private void createErrorView() {
+        mHomeAdapter.notifyDataSetChanged();
+        new_ll_error.setVisibility(View.VISIBLE);
+    }
+
+    public JobInfo getJonInfoForPosition(int position) {
+        return  mHomeAdapter.mDateList.get(position);
     }
 
 

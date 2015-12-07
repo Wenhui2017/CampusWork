@@ -75,6 +75,8 @@
 
         <activity android:name=".activity.QuestionActivity" />
         <activity android:name=".activity.GuideActivity" />
+        <activity android:name=".activity.EnterActivity"/>
+        <activity android:name=".activity.RegisterActivity"/>
     </application>
 
 </manifest>
