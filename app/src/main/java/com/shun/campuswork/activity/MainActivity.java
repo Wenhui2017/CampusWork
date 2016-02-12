@@ -1,6 +1,7 @@
 package com.shun.campuswork.activity;
 
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -8,21 +9,32 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.google.gson.Gson;
+import com.lidroid.xutils.BitmapUtils;
 import com.shun.campuswork.R;
 import com.shun.campuswork.adapter.MyViewPagerAdapter;
+import com.shun.campuswork.domain.UserInfo;
 import com.shun.campuswork.fragment.HomeFragment;
 import com.shun.campuswork.fragment.NewsFragment;
 import com.shun.campuswork.fragment.PersonFragment;
 import com.shun.campuswork.fragment.ToolFragment;
+import com.shun.campuswork.netdate.UserDate;
+import com.shun.campuswork.tools.MyBitmapUtils;
+import com.shun.campuswork.tools.SharedPreferencesUtils;
+import com.shun.campuswork.tools.ToastUtils;
+import com.shun.campuswork.tools.UiUtils;
 import com.shun.campuswork.view.NoScrollViewPager;
 
 import java.text.SimpleDateFormat;
@@ -33,33 +45,29 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class MainActivity extends BaseActivity implements AMapLocationListener,
         NavigationView.OnNavigationItemSelectedListener {
+    public Toolbar mToolbar;
     public NoScrollViewPager vp_main_content;
     public static MainActivity mainActivity = null;
 
+    private TextView nav_tv_user;
+    private ImageView nav_iv_head;
+
     @Override
     public void init() {
-        if(mainActivity == null){
+        if (mainActivity == null) {
             mainActivity = this;
         }
         setContentView(R.layout.activity_main);
-        initToolBar();
-        initFloatingActionButton();
-        initNavigationView();
+        //String d1 = SharedPreferencesUtils.getString("d1");
+        initView();
         initViewPager();
+        //initUser();
     }
 
-    /**
-     * 初始化Toolbar,根据initContentView中初始化的ContentView.
-     */
-    public void initToolBar() {
+    private void initView() {
+        //初始化Toolbar,根据initContentView中初始化的ContentView.
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-    }
-
-    /**
-     * 初始化悬浮按钮
-     */
-    private void initFloatingActionButton() {
         //右下角的悬浮按钮
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -69,21 +77,86 @@ public class MainActivity extends BaseActivity implements AMapLocationListener,
                         .setAction("Action", null).show();
             }
         });
+        //初始化抽屉
+        initNavigationView();
     }
 
     /**
      * 初始化抽屉
      */
     private void initNavigationView() {
-        //布局容器
+        /*
+         * 1）显示Navigation Drawer的 Activity 对象 2） DrawerLayout 对象
+		 * 3）一个用来指示Navigation Drawer的 drawable资源 4）一个用来描述打开Navigation Drawer的文本
+		 * (用于支持可访问性)。 5）一个用来描述关闭Navigation Drawer的文本(用于支持可访问性).
+		 */
+        //抽屉
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
+        // 让开关和actionbar建立关系
         toggle.syncState();
-        //抽屉
+        //为抽屉添加头（等同于在xml中 app:headerLayout="@layout/nav_header_main"）
+        View headerView = UiUtils.inflate(R.layout.nav_header_main);
+        nav_iv_head = (ImageView) headerView.findViewById(R.id.nav_iv_head);
+        nav_tv_user = (TextView) headerView.findViewById(R.id.nav_tv_user);
+        nav_iv_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EnterUser();
+            }
+        });
+        //初始化登入界面
+        initEnter();
+        //menu
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.addHeaderView(headerView);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    /**
+     * 应从服务器获取。
+     * 1..用户--密码
+     * 2..用户--用户信息
+     */
+    private void initUser() {
+        String currentUser = "13243189659";
+        SharedPreferencesUtils.putString(SharedPreferencesUtils.CURRENT_USER, currentUser);//模拟已经登入用户
+        //1..用户--密码
+        String pwd = UserDate.getPwd(currentUser);
+        Log.w("pwd", "" + pwd);
+        SharedPreferencesUtils.putString(currentUser, pwd);
+    }
+
+    /**
+     * 初始化登入
+     */
+    private void initEnter() {
+        String currentUser = SharedPreferencesUtils.getString(SharedPreferencesUtils.CURRENT_USER);
+        Log.w("currentUser", "currentUser" + currentUser);
+        if (TextUtils.isEmpty(currentUser)) {
+            nav_iv_head.setImageResource(R.mipmap.ic_launcher);
+            nav_tv_user.setText("未登入");
+        } else {
+            String json = SharedPreferencesUtils.getString(currentUser + SharedPreferencesUtils.INFO);
+            Log.w("json", "json" + json);
+            if (!TextUtils.isEmpty(json)) {
+                Gson gson = new Gson();
+                UserInfo userInfo = gson.fromJson(json, UserInfo.class);
+                MyBitmapUtils.display(nav_iv_head, userInfo.headUrl);
+                nav_tv_user.setText(userInfo.user);
+            }
+        }
+    }
+
+    private void EnterUser() {
+        String currentUser = SharedPreferencesUtils.getString(SharedPreferencesUtils.CURRENT_USER);
+        if (TextUtils.isEmpty(currentUser)) {
+            startActivity(new Intent(MainActivity.this, EnterActivity.class));
+        } else {
+            ToastUtils.makeText("已登入");
+        }
     }
 
     private void initViewPager() {
@@ -94,12 +167,9 @@ public class MainActivity extends BaseActivity implements AMapLocationListener,
         viewPagerAdapter.addFragment(ToolFragment.getInstance());
         viewPagerAdapter.addFragment(PersonFragment.getInstance());
         vp_main_content.setAdapter(viewPagerAdapter);
-        //vp_main_content.setCurrentItem(1);
     }
 
-    /**
-     * 处理ToolBar的点击事件
-     */
+    /*处理ToolBar的点击事件*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -143,8 +213,10 @@ public class MainActivity extends BaseActivity implements AMapLocationListener,
         } else if (id == R.id.nav_person) {
             vp_main_content.setCurrentItem(3);
         } else if (id == R.id.nav_share) {
-            showShare();
-        } else if (id == R.id.nav_send) {
+            //showShare();
+        } else if (id == R.id.nav_logout) {
+            SharedPreferencesUtils.putString(SharedPreferencesUtils.CURRENT_USER, "");
+            initEnter();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -152,6 +224,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener,
         return true;
     }
 
+    /*分享*/
     private void showShare() {
         ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
@@ -179,7 +252,6 @@ public class MainActivity extends BaseActivity implements AMapLocationListener,
         oks.show(this);
     }
 
-
     /**
      * 处理返回事件
      */
@@ -193,10 +265,7 @@ public class MainActivity extends BaseActivity implements AMapLocationListener,
         }
     }
 
-    /**
-     * 定位服务
-     */
-
+    /*定位服务*/
     public AMapLocationClient mlocationClient;//声明AMapLocationClient类对象
     public AMapLocationClientOption mLocationOption;//声明定位参数设置，通过这个类可以对定位的相关参数进行设置
 
@@ -261,7 +330,8 @@ public class MainActivity extends BaseActivity implements AMapLocationListener,
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStart() {
+        super.onStart();
+        initEnter();
     }
 }

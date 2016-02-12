@@ -21,6 +21,7 @@ import com.shun.campuswork.dateprotocol.HomeDateProtocol;
 import com.shun.campuswork.domain.JobInfo;
 import com.shun.campuswork.global.GlobalContants;
 import com.shun.campuswork.tools.ToastUtils;
+import com.shun.campuswork.tools.UiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = View.inflate(getContext(), R.layout.layout_home, null);
+        View view = UiUtils.inflate(R.layout.layout_home);
         ViewUtils.inject(this, view);
         swipeRefreshLayout.setColorSchemeResources(GlobalContants.refreshColor);
         //初始化界面

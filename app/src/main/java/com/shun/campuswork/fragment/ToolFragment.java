@@ -39,16 +39,19 @@ public class ToolFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final TextView textView = new TextView(getActivity());
-        textView.setText("这是实用工具");
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String json = createDate();
-                Log.w("json..", json + "...");
-            }
-        });
-        return textView;
+        View view = UiUtils.inflate(R.layout.layout_tool);
+//        final TextView textView = new TextView(getActivity());
+//        textView.setText("这是实用工具");
+//        textView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String json = createDate();
+//                Log.w("json..", json + "...");
+//            }
+//        });
+        String json = createDate();
+        Log.w("json..", json + "...");
+        return view;
     }
 
     private String createDate() {
@@ -57,7 +60,7 @@ public class ToolFragment extends Fragment {
         Gson gson = new Gson();
         ArrayList<JobInfo> jsonList = new ArrayList<JobInfo>();
         Random random = new Random();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 10; i++) {
             JobInfo jobInfo = new JobInfo();
             jobInfo.city = "平顶山";
             jobInfo.area = citys[random.nextInt(2)];
@@ -67,13 +70,15 @@ public class ToolFragment extends Fragment {
             jobInfo.type = random.nextInt(6);
             jobInfo.salary = 11;
             jobInfo.releaseTime = System.currentTimeMillis();
-            jobInfo.isRecommend = true;
+            jobInfo.isRecommend = (random.nextInt(1) == 0 ? false : true);
 
             jobInfo.name = "李经理";
             jobInfo.tel = "13245678963";
             jobInfo.desAddress = "河南省平顶山新华区湖光花园小区";
             jobInfo.sex = 0;
-            jobInfo.company= "百胜客";
+            jobInfo.company = "百胜客";
+
+            jobInfo.id = jobInfo.tel + (System.currentTimeMillis() + i * 40000);
             jsonList.add(jobInfo);
         }
         return gson.toJson(jsonList);

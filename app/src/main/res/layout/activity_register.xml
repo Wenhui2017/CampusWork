@@ -13,6 +13,7 @@
         android:gravity="center_vertical">
 
         <View
+            android:id="@+id/v_back"
             android:layout_width="35dp"
             android:layout_height="40dp"
             android:background="@mipmap/back"/>
@@ -58,6 +59,7 @@
 
 
             <EditText
+                android:id="@+id/et_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -68,6 +70,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tv_get_code"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -96,6 +99,7 @@
 
 
             <EditText
+                android:id="@+id/et_code"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -124,6 +128,7 @@
 
 
             <EditText
+                android:id="@+id/et_pwd"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -178,6 +183,7 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:id="@+id/cb_accept"
             android:layout_width="140dp"
             android:layout_height="30dp"
             android:paddingLeft="5dp"
@@ -198,9 +204,10 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="登入"
+        android:text="注册"
         android:background="@drawable/rectangle_1"
         android:layout_margin="5dp"
         android:textColor="@color/white" />

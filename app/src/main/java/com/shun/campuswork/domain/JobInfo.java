@@ -1,12 +1,11 @@
 package com.shun.campuswork.domain;
 
-import java.util.Date;
 
 /**
  * Created by shun99 on 2015/11/23.
  */
 public class JobInfo {
-    public Long id = System.currentTimeMillis();//标识
+    public String id;//标识
     public boolean isRecommend = false;//是否是推荐的
 
     public int type;//类型

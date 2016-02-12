@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,7 +144,6 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
     }
 
 
-
     class NewsContentAdapter extends BaseAdapter {
         public List<JobInfo> mDateList;
         private MyListView myListView;
@@ -209,7 +209,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
     /**
      * 根据兼职时间和类型判断
      */
-    public void chooseWork( String flagTime, String flagType) {
+    public void chooseWork(String flagTime, String flagType) {
         if (flagTime.contains("a") && flagType.contains("a")) {
             mNewsContentAdapter.mDateList = mJobInfoList;
             createSuccessView();
@@ -249,6 +249,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
         time_btn_enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String temp = mFlagTime.toString();
                 mFlagTime.setLength(0);
                 if (cb_1.isChecked()) {
                     mFlagTime.append("0");
@@ -259,6 +260,11 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
                 if (cb_all.isChecked()) {
                     mFlagTime.append("a");
                 }
+                //如果什么都没选中，恢复原来的
+                if (TextUtils.isEmpty(mFlagTime.toString())){
+                    mFlagTime.append(temp);
+                }
+
                 chooseWork(mFlagTime.toString(), mFlagType.toString());
                 dialer.dismiss();
             }
@@ -284,6 +290,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
         type_btn_enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String temp = mFlagTime.toString();
                 mFlagType.setLength(0);
                 if (cb_all.isChecked()) {
                     mFlagType.append("a");
@@ -308,6 +315,9 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
                 }
                 if (cb_7.isChecked()) {
                     mFlagType.append("6");
+                }
+                if (TextUtils.isEmpty(mFlagTime.toString())){
+                    mFlagTime.append(temp);
                 }
                 chooseWork(mFlagTime.toString(), mFlagType.toString());
                 dialer.dismiss();

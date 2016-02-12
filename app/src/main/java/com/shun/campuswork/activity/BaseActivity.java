@@ -9,8 +9,7 @@ import android.util.Log;
  * Created by shun99 on 2015/11/19.
  */
 public abstract class BaseActivity extends AppCompatActivity {
-    public Toolbar mToolbar;
-
+    //public Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,16 +18,4 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public abstract void init();
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.w("onDestroy","onDestroy....");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.w("onStop", "onStop....");
-    }
 }

@@ -7,16 +7,19 @@
     android:orientation="horizontal">
 
     <com.shun.campuswork.view.ButtonView
+        android:id="@+id/btnv_star"
         style="@style/job_btn_1"
         shun:view_image="@mipmap/star"
         shun:view_title="收藏" />
 
     <com.shun.campuswork.view.ButtonView
+        android:id="@+id/btnv_share"
         style="@style/job_btn_1"
         shun:view_image="@mipmap/share"
         shun:view_title="分享" />
 
     <LinearLayout
+        android:id="@+id/ll_sign_up"
         style="@style/job_btn"
         android:layout_marginRight="5dp"
         android:layout_weight="2"

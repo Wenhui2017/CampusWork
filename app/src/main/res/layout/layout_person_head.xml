@@ -19,24 +19,35 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:src="@mipmap/default_head5" />
-
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_toEndOf="@+id/iv_person_head"
-            android:text="@string/d11"
-            android:textSize="20sp" />
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USER"
+                android:textSize="22sp" />
+            <TextView
+                android:id="@+id/tv_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个人签名"
+                android:textSize="14sp" />
 
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="20dp"
-            android:layout_alignBottom="@id/textView2"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/arrow_right" />
+        </LinearLayout>
+
+        <!--<ImageView-->
+            <!--android:layout_width="15dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:src="@mipmap/arrow_right"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentEnd="true" />-->
     </RelativeLayout>
 
     <LinearLayout
@@ -50,15 +61,16 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1">
-
             <TextView
+                android:id="@+id/tv_des_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:drawableLeft="@mipmap/wallet"
+                android:drawableLeft="@mipmap/secure"
                 android:drawablePadding="10dp"
                 android:text="@string/d21" />
+
         </LinearLayout>
         <View
             android:layout_width="0.1dp"
@@ -69,15 +81,17 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1">
-
             <TextView
+                android:id="@+id/tv_update_pwd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:drawableLeft="@mipmap/secure"
+                android:drawableLeft="@mipmap/wallet"
                 android:drawablePadding="10dp"
                 android:text="@string/d22" />
+
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

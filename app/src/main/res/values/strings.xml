@@ -17,18 +17,17 @@
 <!--个人中心-->
     <string name="d11">亲，马上去完善简历吧</string>
     <string name="d12">未实名</string>
-    <string name="d21">我的钱包</string>
-    <string name="d22">我的简直保险</string>
+    <string name="d21">个人资料</string>
+    <string name="d22">修改密码</string>
     <string name="d31">我的申请</string>
-    <string name="d41">已报名</string>
-    <string name="d42">已录用</string>
-    <string name="d43">已到岗</string>
-    <string name="d44">已结算</string>
+    <string name="d41">报名</string>
+    <string name="d42">录用</string>
+    <string name="d43">完成</string>
+    <string name="d44">历史</string>
     <string name="d51">我的收藏</string>
     <string name="d61">实名认证</string>
-    <string name="d71">我的信用</string>
-    <string name="d81">意见反馈</string>
-    <string name="d91">更多</string>
+    <string name="d71">意见反馈</string>
+    <string name="d81">更   多</string>
     <string name="loading_error"><![CDATA[网络不给力>_<,点击刷新<]]></string>
 
     <string name="gpsfollow">追随</string>
@@ -87,6 +86,9 @@
     <string name="gui3">传销公司一般先安排学生以销售人员的名义上岗工作，然后公司让学生交纳一定的提货款，再让学生去哄骗他人。有的同学在高回扣的诱饵下，甚至去欺骗自己的同学、朋友。上当之后又往往骑虎难下，最终只得自己白搭上一笔钱。 大学生要提高防范意识，了解基本传销特征——职责是“发展更多的人”+交纳昂贵会费+很多人情绪激昂。一旦识别出传销，立即停止打工，及时报警。抵制高回扣的诱惑，时刻维护自身合法权益，防止陷入传销陷阱。</string>
     <string name="gui4">一些不法分子以高薪聘请家教、秘书等名义把目光瞄上涉事不深、找工作心切的大学生。一不小心落入陷阱后，青年学生轻则失身，重则危及生命。 大学生假期做家教要注意安全，要认真核实对方身份真实性，要明确工作时间地点，同时要常与家人、朋友保持联系，告知家教或工作地点，了解自己工作动态。</string>
     <string name="gui5">这类骗子在面试学生后，通常要求参加公司的上岗培训，并要交培训费，有的进行一些培训，发培训资料、光盘等，但这些资料与考试内容无任何关系。有的甚至根本不培训，收钱后做个样子。 培训都是免费或带薪的，请勿缴纳任何费用！</string>
+    <string name="protocol">协议内容</string>
+
+    <string name="ps">请输入工作经验，应聘会加分呦</string>
 
 
 </resources>
