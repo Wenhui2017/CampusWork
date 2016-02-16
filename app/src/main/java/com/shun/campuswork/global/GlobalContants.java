@@ -1,6 +1,7 @@
 package com.shun.campuswork.global;
 
 import com.shun.campuswork.R;
+import com.shun.campuswork.tools.TimeUtils;
 
 /**
  * 存储项目的常量
@@ -8,13 +9,19 @@ import com.shun.campuswork.R;
  * @author shun99
  */
 public class GlobalContants {
-    public static final String SERVER_URL = "http://campuswork1.sinaapp.com/";
-    public static final String IMAGE_URL = SERVER_URL + "image?name=";
-    public static final String NEWS = "news";
-    public static final String RECOMMEND = "recommend";
+    public static final String[] drawerTitles = {"首页", "最新兼职", "实用功能", "个人中心"};
 
+    /**
+     * bundle传参用的参数
+     */
+    public static final String TITLE = "title";
+    public static final String FLAG_TIME = "flagTime";
+    public static final String FLAG_TYPE = "flagType";
+
+    /**
+     * 用于招聘信息item格式化显示
+     */
     public static final String WORK_TIME[] = new String[]{"星期天", "工作日"};
-
     public static final String WORK_TYPE[] = new String[]{"派单", "礼仪", "促销", "家教", "模特", "演出", "其他"};
 
     public static String getWorkType(int pos) {
@@ -28,7 +35,7 @@ public class GlobalContants {
     }
 
     public static String getReleaseTime(Long relesaTime) {
-        return relesaTime + "小时前";
+        return TimeUtils.getTimeInterval(relesaTime) + "前";
     }
 
     public static String getSalary(double salary) {
@@ -57,4 +64,25 @@ public class GlobalContants {
     public static final int[] refreshColor = new int[]{R.color.secondary_color, R.color.primary_color,
             R.color.next_product_title_color, R.color.next_product_count_bg};
 
+    /**
+     * SharePreferences用的常量
+     */
+    public static final String LOGGING_USER = "loggingUser";//当前登入的账户
+    public static final String LOGGED_USER = "loggedUser";//登入过得用户
+    public static final String REM_PWD = "3";//记住密码
+    public static final String INFO = "_info";
+    public static final String STAR = "_star";
+    public static final String ENROLL = "_signUp";//报名
+
+    /**
+     * 数据获取的地址
+     */
+    public static final String SERVER_URL = "http://campuswork1.sinaapp.com/";
+    public static final String IMAGE_URL = SERVER_URL + "image?name=";
+    public static final String NEWS = "news";
+    public static final String RECOMMEND = "recommend";
+
+    public static final String getLogUrl(String user, String pwd) {
+        return SERVER_URL + user + "_" + pwd + ".json";
+    }
 }

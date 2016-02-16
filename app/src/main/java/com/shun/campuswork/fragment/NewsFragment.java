@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -20,41 +22,36 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.shun.campuswork.R;
 import com.shun.campuswork.activity.JobActivity;
+import com.shun.campuswork.adapter.NewsContentAdapter;
 import com.shun.campuswork.dateprotocol.BaseProtocol;
+import com.shun.campuswork.dateprotocol.HomeDateProtocol;
 import com.shun.campuswork.dateprotocol.NewsDateProtocol;
 import com.shun.campuswork.domain.JobInfo;
+import com.shun.campuswork.global.GlobalContants;
 import com.shun.campuswork.holder.NewsHolder;
+import com.shun.campuswork.tools.ColorUtils;
+import com.shun.campuswork.tools.LogUtils;
 import com.shun.campuswork.tools.ToastUtils;
 import com.shun.campuswork.tools.UiUtils;
 import com.shun.campuswork.view.MyListView;
+import com.shun.campuswork.view.MySwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * 最新招聘信息的fragment--单例模式
- * Created by shun99 on 2015/11/19.
+ * 最新招聘信息
  */
 public class NewsFragment extends Fragment implements View.OnClickListener {
     public static NewsFragment instance = null;
+
     private NewsContentAdapter mNewsContentAdapter;
-    private List<JobInfo> mJobInfoListType;
-    private List<JobInfo> mJobInfoList;//保存有一份加载成功是的数据，用来方便筛选
+    private List<JobInfo> mJobInfoListType;//保存有一份加载成功是的数据，用来方便筛选
+    private List<JobInfo> mJobInfoList;
     private StringBuffer mFlagTime = new StringBuffer("a");
     private StringBuffer mFlagType = new StringBuffer("a");
-
-
-    public static NewsFragment getInstance() {
-        if (instance == null) {
-            Log.w("NewsFragment", "NewsFragment");
-            instance = new NewsFragment();
-        }
-        return instance;
-    }
-
-    private NewsFragment() {
-    }
+    private int moreDatePos = 1;
 
     @ViewInject(R.id.news_tv_time)
     private TextView news_tv_time;
@@ -68,9 +65,14 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
     LinearLayout news_ll_content;
     @ViewInject(R.id.news_lv_content)
     MyListView news_lv_content;
+    @ViewInject(R.id.news_srl)
+    private MySwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if(instance == null){
+            instance = this;
+        }
         View view = UiUtils.inflate(R.layout.layout_news);
         ViewUtils.inject(this, view);
         initUI();
@@ -79,56 +81,87 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        String tempTime = getArguments().getString(GlobalContants.FLAG_TIME, "a");
+        String tempType = getArguments().getString(GlobalContants.FLAG_TYPE, "a");
+        chooseWork(tempTime, tempType);
+    }
+
     private void initUI() {
-        mJobInfoList = new ArrayList<JobInfo>();
+        mJobInfoList = new ArrayList<>();
         mNewsContentAdapter = new NewsContentAdapter(mJobInfoList, news_lv_content);
         news_lv_content.setAdapter(mNewsContentAdapter);
+        swipeRefreshLayout.setColorSchemeColors(ColorUtils.refreshColors);
     }
 
     private void initDate() {
+        setLoadingState();
+        moreDatePos = 1;
         NewsDateProtocol newsDateProtocol = new NewsDateProtocol(1);
         newsDateProtocol.setOnDateListener(new BaseProtocol.OnDateListener<List<JobInfo>>() {
             @Override
             public void onRefresh(List<JobInfo> jobInfoList) {
                 if (jobInfoList != null) {
-                    mJobInfoList = jobInfoList;
-                    mNewsContentAdapter.mDateList = jobInfoList;
-                    createSuccessView();
+                    mNewsContentAdapter.mDateList.clear();
+                    mNewsContentAdapter.mDateList.addAll(jobInfoList);
+                    setLoadSuccessState();
                 } else {
-                    createErrorView();
+                    setLoadFailedState();
                 }
-
             }
         });
     }
 
-    private void createSuccessView() {
-        new_ll_error.setVisibility(View.GONE);
-        news_ll_content.setVisibility(View.VISIBLE);
-        mNewsContentAdapter.notifyDataSetChanged();
+    private void LoadMoreDate() {
+        NewsDateProtocol newsDateProtocol = new NewsDateProtocol(moreDatePos);
+        newsDateProtocol.setOnDateListener(new BaseProtocol.OnDateListener<List<JobInfo>>() {
+            @Override
+            public void onRefresh(List<JobInfo> jobInfoList) {
+                if (jobInfoList == null) {
+                    ToastUtils.makeText("没有更多");
+                } else {
+                    mNewsContentAdapter.mDateList.addAll(jobInfoList);
+                    setLoadSuccessState();
+                    moreDatePos++;
+                }
+            }
+        });
     }
-
-    private void createErrorView() {
-        new_ll_error.setVisibility(View.VISIBLE);
-        news_ll_content.setVisibility(View.GONE);
-        mNewsContentAdapter.notifyDataSetChanged();
-    }
-
 
     private void initListener() {
         news_tv_time.setOnClickListener(this);
         news_tv_type.setOnClickListener(this);
         news_tv_error.setOnClickListener(this);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initDate();
+            }
+        });
         news_lv_content.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 clickItem(position);
             }
         });
-    }
 
-    public JobInfo getJonInfoForPosition(int position) {
-        return mNewsContentAdapter.mDateList.get(position);
+        /*监听滚动事件*/
+        news_lv_content.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
+                        && news_lv_content.getLastVisiblePosition() == (mNewsContentAdapter.mDateList.size() - 1)) {
+                    LoadMoreDate();
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            }
+        });
     }
 
     /**
@@ -138,49 +171,10 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
      */
     private void clickItem(int position) {
         Intent intent = new Intent(getActivity(), JobActivity.class);
-        intent.putExtra("position", position);
-        intent.putExtra("flag", 1);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("jobInfo", mJobInfoList.get(position));
+        intent.putExtras(bundle);
         startActivity(intent);
-    }
-
-
-    class NewsContentAdapter extends BaseAdapter {
-        public List<JobInfo> mDateList;
-        private MyListView myListView;
-
-        public NewsContentAdapter(List<JobInfo> mDateList, MyListView myListView) {
-            this.mDateList = mDateList;
-            this.myListView = myListView;
-        }
-
-        @Override
-        public int getCount() {
-            return mDateList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            NewsHolder newsHolder;
-            if (convertView == null) {
-                newsHolder = new NewsHolder();
-                convertView = newsHolder.getConvertView();
-            } else {
-                newsHolder = (NewsHolder) convertView.getTag();
-            }
-            JobInfo jobInfo = mDateList.get(position);
-            newsHolder.inteDate(jobInfo);
-            return convertView;
-        }
     }
 
     @Override
@@ -193,11 +187,10 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
                 alertType();
                 break;
             case R.id.news_tv_error:
-                ToastUtils.makeText("点击了错误");
+                initDate();
                 break;
         }
     }
-
 
     private String workTimeBoolean2String(boolean b) {
         if (!b)
@@ -205,14 +198,11 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
         return "1";
     }
 
-
-    /**
-     * 根据兼职时间和类型判断
-     */
+    /*根据兼职时间和类型判断*/
     public void chooseWork(String flagTime, String flagType) {
         if (flagTime.contains("a") && flagType.contains("a")) {
             mNewsContentAdapter.mDateList = mJobInfoList;
-            createSuccessView();
+            setLoadSuccessState();
         } else {
             if (mJobInfoListType == null) {
                 mJobInfoListType = new ArrayList<>();
@@ -227,15 +217,15 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
                 }
             }
             if (mJobInfoListType.size() == 0) {
-                createErrorView();
+                setLoadFailedState();
             } else {
                 mNewsContentAdapter.mDateList = mJobInfoListType;
-                createSuccessView();
+                setLoadSuccessState();
             }
         }
     }
 
-
+    /*弹窗*/
     public void alertTime() {
         // 创建一个 Builder 对象
         AlertDialog.Builder bulider = new AlertDialog.Builder(getContext());
@@ -261,7 +251,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
                     mFlagTime.append("a");
                 }
                 //如果什么都没选中，恢复原来的
-                if (TextUtils.isEmpty(mFlagTime.toString())){
+                if (TextUtils.isEmpty(mFlagTime.toString())) {
                     mFlagTime.append(temp);
                 }
 
@@ -316,7 +306,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
                 if (cb_7.isChecked()) {
                     mFlagType.append("6");
                 }
-                if (TextUtils.isEmpty(mFlagTime.toString())){
+                if (TextUtils.isEmpty(mFlagTime.toString())) {
                     mFlagTime.append(temp);
                 }
                 chooseWork(mFlagTime.toString(), mFlagType.toString());
@@ -326,9 +316,24 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
         dialer.show();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mNewsContentAdapter = null;
+    private void setLoadingState() {
+        swipeRefreshLayout.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(true);
+        new_ll_error.setVisibility(View.GONE);
     }
+
+    private void setLoadSuccessState() {
+        new_ll_error.setVisibility(View.GONE);
+        news_ll_content.setVisibility(View.VISIBLE);
+        mNewsContentAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private void setLoadFailedState() {
+        new_ll_error.setVisibility(View.VISIBLE);
+        news_ll_content.setVisibility(View.GONE);
+        mNewsContentAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
 }

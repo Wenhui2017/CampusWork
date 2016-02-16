@@ -1,6 +1,6 @@
 package com.shun.campuswork.activity;
 
-import android.util.Log;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -8,9 +8,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.shun.campuswork.R;
+import com.shun.campuswork.dateprotocol.UserDate;
 import com.shun.campuswork.domain.UserInfo;
-import com.shun.campuswork.netdate.UserDate;
-import com.shun.campuswork.tools.SharedPreferencesUtils;
 
 /**
  * Created by shun99 on 2015/12/6.
@@ -22,17 +21,18 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
     EditText et_name, et_user, et_id, et_sex, et_school, et_expe;
     TextView tv_phone;
     Button btn_enter;
-    private String enterUser;
+    private String mLoggingUser;
 
     @Override
-    public void init() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        initView();
+        findViews();
         initListener();
         initDate();
     }
 
-    private void initView() {
+    private void findViews() {
         v_back = findViewById(R.id.v_back);
         et_name = (EditText) findViewById(R.id.et_name);
         et_user = (EditText) findViewById(R.id.et_user);
@@ -52,8 +52,8 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
 
 
     private void initDate() {
-        enterUser = SharedPreferencesUtils.getString(SharedPreferencesUtils.CURRENT_USER);
-        String json = SharedPreferencesUtils.getString(enterUser + SharedPreferencesUtils.INFO);
+        mLoggingUser = UserDate.getLoggingUser();
+        String json = UserDate.getUserInfo(mLoggingUser);
         UserInfo userInfo = praseJson(json);
         if (userInfo != null) {
             et_name.setText(userInfo.name);
@@ -66,7 +66,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void saveDate(){
+    private void saveDate() {
         UserInfo userInfo = new UserInfo();
         userInfo.name = et_name.getText().toString();
         userInfo.user = et_user.getText().toString();
@@ -78,8 +78,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
         userInfo.headUrl = "http://campuswork1.sinaapp.com/head.jpg";
         Gson gson = new Gson();
         String json = gson.toJson(userInfo);
-        Log.w("userInfo", "" + json);
-        UserDate.putUserInfo(enterUser, json);//更新网络数据
+        UserDate.updateUserInfo(mLoggingUser, json);
     }
 
     private UserInfo praseJson(String json) {

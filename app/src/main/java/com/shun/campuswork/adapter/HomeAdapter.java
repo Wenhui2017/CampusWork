@@ -17,7 +17,7 @@ import com.shun.campuswork.tools.UiUtils;
 import java.util.List;
 
 /**
- * Created by shun99 on 2015/11/22.
+ * 该适配器里有3中item
  */
 public class HomeAdapter extends BaseAdapter {
     public ListView mListView;

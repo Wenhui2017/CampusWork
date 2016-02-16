@@ -5,9 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**
- * Created by shun99 on 2015/11/24.
- */
+
 public class MyHeadViewPager extends ViewPager{
 
     public MyHeadViewPager(Context context) {

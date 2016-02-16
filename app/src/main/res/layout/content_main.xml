@@ -12,8 +12,12 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <com.shun.campuswork.view.NoScrollViewPager
-        android:id="@+id/vp_main_content"
+    <!--<com.shun.campuswork.view.NoScrollViewPager-->
+        <!--android:id="@+id/vp_main_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+    <FrameLayout
+        android:id="@+id/fl_main_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 </LinearLayout>

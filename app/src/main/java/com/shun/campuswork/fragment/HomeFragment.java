@@ -19,20 +19,17 @@ import com.shun.campuswork.adapter.HomeAdapter;
 import com.shun.campuswork.dateprotocol.BaseProtocol;
 import com.shun.campuswork.dateprotocol.HomeDateProtocol;
 import com.shun.campuswork.domain.JobInfo;
-import com.shun.campuswork.global.GlobalContants;
-import com.shun.campuswork.tools.ToastUtils;
+import com.shun.campuswork.tools.ColorUtils;
 import com.shun.campuswork.tools.UiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 主页的fragment--单例模式
  * Created by shun99 on 2015/11/19.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
     private static HomeFragment instance = null;
-    private List<JobInfo> mJobInfoList;
 
     @ViewInject(R.id.lv_home)
     private ListView lv_home;
@@ -42,34 +39,41 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout new_ll_error;
     private HomeAdapter mHomeAdapter;
 
-    public static HomeFragment getInstance() {
-        if (instance == null) {
-            instance = new HomeFragment();
-        }
-        return instance;
-    }
-
-    private HomeFragment() {
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (instance == null) {
+            instance = this;
+        }
         View view = UiUtils.inflate(R.layout.layout_home);
         ViewUtils.inject(this, view);
-        swipeRefreshLayout.setColorSchemeResources(GlobalContants.refreshColor);
-        //初始化界面
         initUI();
-        //加载数据，更新界面
         initDate();
         initListener();
         return view;
     }
 
     private void initUI() {
-        mJobInfoList = new ArrayList<JobInfo>();
+        List<JobInfo> mJobInfoList;mJobInfoList = new ArrayList<>();
         mHomeAdapter = new HomeAdapter(lv_home, mJobInfoList);
+        swipeRefreshLayout.setColorSchemeColors(ColorUtils.refreshColors);
         lv_home.setAdapter(mHomeAdapter);
+    }
+
+    private void initDate() {
+        setLoadingState();
+        HomeDateProtocol homeDateProtocol = new HomeDateProtocol(1);
+        homeDateProtocol.setOnDateListener(new BaseProtocol.OnDateListener<List<JobInfo>>() {
+            @Override
+            public void onRefresh(List<JobInfo> jobInfoList) {
+                if (jobInfoList == null) {
+                    setLoadFailedState();
+                } else {
+                    mHomeAdapter.mDateList.clear();
+                    mHomeAdapter.mDateList.addAll(jobInfoList);
+                    setLoadSuccessState/**/();
+                }
+            }
+        });
     }
 
     private void initListener() {
@@ -77,18 +81,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 1) {
-                    clickItem(position-2);
+                    clickItem(position);
                 }
             }
         });
-        new_ll_error.setOnClickListener(this);
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                initDate();
             }
         });
+        new_ll_error.setOnClickListener(this);
     }
 
     /**
@@ -98,42 +101,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
      */
     private void clickItem(int position) {
         Intent intent = new Intent(getActivity(), JobActivity.class);
-        intent.putExtra("position", position);
-        intent.putExtra("flag", 0);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("jobInfo", mHomeAdapter.mDateList.get(position - 2));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
-
-    private void initDate() {
-        HomeDateProtocol homeDateProtocol = new HomeDateProtocol(1);
-        homeDateProtocol.setOnDateListener(new BaseProtocol.OnDateListener<List<JobInfo>>() {
-            @Override
-            public void onRefresh(List<JobInfo> jobInfoList) {
-                if (jobInfoList == null) {
-                    createErrorView();
-                } else {
-                    //mJobInfoList = jobInfoList;
-                    mHomeAdapter.mDateList = jobInfoList;
-                    createSuccessView();
-                }
-            }
-        });
+    private void setLoadingState() {
+        swipeRefreshLayout.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(true);
+        new_ll_error.setVisibility(View.GONE);
     }
 
-    private void createSuccessView() {
+    private void setLoadSuccessState() {
+        swipeRefreshLayout.setRefreshing(false);
         mHomeAdapter.notifyDataSetChanged();
         new_ll_error.setVisibility(View.GONE);
     }
 
-    private void createErrorView() {
+    private void setLoadFailedState() {
+        swipeRefreshLayout.setRefreshing(false);
         mHomeAdapter.notifyDataSetChanged();
         new_ll_error.setVisibility(View.VISIBLE);
     }
-
-    public JobInfo getJonInfoForPosition(int position) {
-        return  mHomeAdapter.mDateList.get(position);
-    }
-
 
     @Override
     public void onClick(View v) {

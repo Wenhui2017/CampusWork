@@ -23,13 +23,5 @@ public class MyListView extends ListView {
         super(context);
     }
 
-    private float startX = 0;
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.w("ls_输出",""+ev.getRawX());
-        getParent().requestDisallowInterceptTouchEvent(true);
-        //只需这句话，让父类不拦截触摸事件就可以了。
-        return super.dispatchTouchEvent(ev);
-    }
 }

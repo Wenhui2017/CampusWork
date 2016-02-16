@@ -24,7 +24,7 @@ import com.shun.campuswork.tools.FileUtils;
  * 
  * @author shun99
  * 
- * @param <T>需要解析的bean对象
+ * @param <T>需要解析的bean对象，如果解析结果是List集合 T=List<JobInfo>
  */
 public abstract class BaseProtocol<T> {
 	private int mIndex;

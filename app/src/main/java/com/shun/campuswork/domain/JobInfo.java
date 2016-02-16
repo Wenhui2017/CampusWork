@@ -1,10 +1,12 @@
 package com.shun.campuswork.domain;
 
 
+import java.io.Serializable;
+
 /**
  * Created by shun99 on 2015/11/23.
  */
-public class JobInfo {
+public class JobInfo implements Serializable{
     public String id;//标识
     public boolean isRecommend = false;//是否是推荐的
 

@@ -1,19 +1,18 @@
 package com.shun.campuswork.activity;
 
-import android.view.View;
-import android.widget.TextView;
+import android.os.Bundle;
 
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 import com.shun.campuswork.R;
 
 /**
- * Created by shun99 on 2015/12/3.
+ * 防骗指南
  */
 public class GuideActivity extends BaseActivity{
 
     @Override
-    public void init() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
         ViewUtils.inject(this);
     }

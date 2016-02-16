@@ -1,6 +1,7 @@
 package com.shun.campuswork.holder;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.lidroid.xutils.ViewUtils;
@@ -11,6 +12,8 @@ import com.shun.campuswork.activity.MainActivity;
 import com.shun.campuswork.activity.QuestionActivity;
 import com.shun.campuswork.fragment.HomeFragment;
 import com.shun.campuswork.fragment.NewsFragment;
+import com.shun.campuswork.global.GlobalContants;
+import com.shun.campuswork.tools.LogUtils;
 import com.shun.campuswork.tools.ToastUtils;
 import com.shun.campuswork.tools.UiUtils;
 import com.shun.campuswork.view.HomeCenterView;
@@ -47,19 +50,30 @@ public class HomeCenterHolder extends BaseHolder implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.hcv_1:
-                MainActivity.mainActivity.vp_main_content.setCurrentItem(1);
-                NewsFragment.instance.chooseWork("0","a");
+                jumpNewsFragment("0", "a");
                 break;
             case R.id.hcv_2:
-                MainActivity.mainActivity.vp_main_content.setCurrentItem(1);
-                NewsFragment.instance.chooseWork("1", "a");
+                jumpNewsFragment("1", "a");
                 break;
             case R.id.hcv_3:
-                MainActivity.mainActivity.startActivity(new Intent(UiUtils.getContext(), QuestionActivity.class));
+                MainActivity.instance.startActivity(new Intent(UiUtils.getContext(), QuestionActivity.class));
                 break;
             case R.id.hcv_4:
-                MainActivity.mainActivity.startActivity(new Intent(UiUtils.getContext(), GuideActivity.class));
+                MainActivity.instance.startActivity(new Intent(UiUtils.getContext(), GuideActivity.class));
                 break;
         }
+    }
+
+    private void jumpNewsFragment(String s, String s1) {
+        if(NewsFragment.instance == null) {
+            Bundle bundle = new Bundle();
+            bundle.putString(GlobalContants.FLAG_TIME, s);
+            bundle.putString(GlobalContants.FLAG_TYPE, s1);
+            MainActivity.instance.selectItem(1, bundle);
+        }else{
+            MainActivity.instance.selectItem(1);
+            NewsFragment.instance.chooseWork(s, s1);
+        }
+        MainActivity.instance.setNavItemState(1, true);
     }
 }

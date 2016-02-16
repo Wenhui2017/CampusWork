@@ -23,7 +23,7 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/tv_sign_up"
+                android:id="@+id/tv_enroll"
                 android:paddingTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

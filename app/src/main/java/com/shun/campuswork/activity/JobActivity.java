@@ -1,5 +1,7 @@
 package com.shun.campuswork.activity;
 
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -8,19 +10,17 @@ import android.widget.TextView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.shun.campuswork.R;
+import com.shun.campuswork.dateprotocol.UserDate;
 import com.shun.campuswork.domain.JobInfo;
-import com.shun.campuswork.fragment.HomeFragment;
-import com.shun.campuswork.fragment.NewsFragment;
 import com.shun.campuswork.global.GlobalContants;
-import com.shun.campuswork.netdate.UserDate;
-import com.shun.campuswork.tools.SharedPreferencesUtils;
 import com.shun.campuswork.tools.ToastUtils;
 import com.shun.campuswork.view.ButtonView;
 
 /**
- * Created by shun99 on 2015/11/29.
+ * 工作信息详情
  */
 public class JobActivity extends BaseActivity implements View.OnClickListener {
+
     @ViewInject(R.id.job_tv_title)
     private TextView job_tv_title;
     @ViewInject(R.id.job_tv_area)
@@ -54,22 +54,17 @@ public class JobActivity extends BaseActivity implements View.OnClickListener {
     @ViewInject(R.id.ll_sign_up)
     private LinearLayout ll_sign_up;
 
-    private int position;
-    private int mFlag;
     private JobInfo mJobInfo;
-
-    private String currentUser;
-
+    private String mLoggingUser;
 
     @Override
-    public void init() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jab);
         ViewUtils.inject(this);
-        position = getIntent().getIntExtra("position", 0);
-        mFlag = getIntent().getIntExtra("flag", 0);
-        initDate();
-        initView();
+        initUI();
         initListener();
+        mLoggingUser = UserDate.getLoggingUser();
     }
 
     private void initListener() {
@@ -78,16 +73,9 @@ public class JobActivity extends BaseActivity implements View.OnClickListener {
         ll_sign_up.setOnClickListener(this);
     }
 
-    private void initDate() {
-        currentUser = SharedPreferencesUtils.getString(SharedPreferencesUtils.CURRENT_USER);
-        if (mFlag == 0) {
-            mJobInfo = HomeFragment.getInstance().getJonInfoForPosition(position);
-        } else if (mFlag == 1) {
-            mJobInfo = NewsFragment.getInstance().getJonInfoForPosition(position);
-        }
-    }
 
-    private void initView() {
+    private void initUI() {
+        mJobInfo = (JobInfo) getIntent().getSerializableExtra("jobInfo");
         job_tv_title.setText(mJobInfo.title);
         job_tv_area.setText(mJobInfo.area);
         job_tv_time.setText(GlobalContants.getReleaseTime(mJobInfo.releaseTime));
@@ -105,14 +93,13 @@ public class JobActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(currentUser == null)
-        {
+        if (TextUtils.isEmpty(mLoggingUser)) {
             ToastUtils.makeText("你还没有登入");
             return;
         }
         switch (v.getId()) {
             case R.id.ll_sign_up:
-                signUp();
+                enroll();
                 break;
             case R.id.btnv_share:
                 break;
@@ -124,21 +111,21 @@ public class JobActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void star() {
-        if(UserDate.star(currentUser, mJobInfo.id)){
+        if (UserDate.star(mLoggingUser, mJobInfo.id)) {
             ToastUtils.makeText("收藏成功");
-        }else{
+        } else {
             ToastUtils.makeText("取消收藏");
-            UserDate.delStar(currentUser, mJobInfo.id);
+            UserDate.escStar(mLoggingUser, mJobInfo.id);
         }
     }
 
-    private void signUp() {
-        Log.w("id",""+mJobInfo.id);
-        if(UserDate.signUp(currentUser, mJobInfo.id)){
+    private void enroll() {
+        Log.w("id", "" + mJobInfo.id);
+        if (UserDate.enroll(mLoggingUser, mJobInfo.id)) {
             ToastUtils.makeText("报名成功");
-        }else{
+        } else {
             ToastUtils.makeText("取消报名");
-            UserDate.delSignUp(currentUser, mJobInfo.id);
+            UserDate.escEnroll(mLoggingUser, mJobInfo.id);
         }
     }
 

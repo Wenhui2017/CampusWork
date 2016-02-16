@@ -1,8 +1,7 @@
 package com.shun.campuswork.activity;
 
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.shun.campuswork.R;
 
@@ -12,31 +11,21 @@ import com.shun.campuswork.R;
  */
 public class ProtocolActivity extends BaseActivity implements View.OnClickListener{
 
-    private TextView tv_register;
-
+    private View view;
+    
     @Override
-    public void init() {
-        setContentView(R.layout.activity_enter);
-        tv_register = (TextView) findViewById(R.id.tv_register);
-        initListener();
-    }
-
-    private void initListener() {
-        tv_register.setOnClickListener(this);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_protocol);
+        view = findViewById(R.id.v_back);
+        view.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.tv_register:
-                startActivity(new Intent(ProtocolActivity.this, RegisterActivity.class));
-                break;
-            case R.id.v_back:
-                onBackPressed();
-                break;
+        if(v.getId() == R.id.v_back){
+            onBackPressed();
         }
     }
-
-
 }

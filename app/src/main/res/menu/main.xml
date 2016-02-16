@@ -11,6 +11,5 @@
         android:id="@+id/action_position"
         android:orderInCategory="10"
         android:title="@string/action_position"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
 </menu>

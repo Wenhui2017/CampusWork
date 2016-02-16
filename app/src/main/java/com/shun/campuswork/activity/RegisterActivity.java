@@ -1,7 +1,7 @@
 package com.shun.campuswork.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -12,8 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.shun.campuswork.R;
-import com.shun.campuswork.netdate.UserDate;
-import com.shun.campuswork.tools.SharedPreferencesUtils;
+import com.shun.campuswork.dateprotocol.UserDate;
 import com.shun.campuswork.tools.ToastUtils;
 
 
@@ -22,7 +21,7 @@ import cn.smssdk.SMSSDK;
 
 
 /**
- * Created by shun99 on 2015/12/6.
+ * 注册页面
  */
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
@@ -60,8 +59,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     }
                 } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//校验验证码成功
                     ToastUtils.makeText("通过验证,跳转到登入界面");
-                    UserDate.setUserPwd(phoneString, pwdString);//保存注册成功的信息
-                    Intent intent = new Intent(RegisterActivity.this, EnterActivity.class);
+                    UserDate.putUserPwd(phoneString, pwdString);//保存注册成功的信息
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
             } else {
@@ -70,8 +69,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
     };
 
+
     @Override
-    public void init() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         et_phone = (EditText) findViewById(R.id.et_phone);
         et_code = (EditText) findViewById(R.id.et_code);
@@ -83,7 +84,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         initListener();
         initSms();
     }
-
 
     private void initSms() {
         SMSSDK.initSDK(this, APPKEY, APPSECRET);

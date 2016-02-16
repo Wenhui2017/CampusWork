@@ -26,31 +26,22 @@ import java.util.Random;
 public class ToolFragment extends Fragment {
     private static ToolFragment instance = null;
 
-    public static ToolFragment getInstance() {
-        if (instance == null) {
-            instance = new ToolFragment();
-        }
-        return instance;
-    }
-
-    private ToolFragment() {
-
-    }
+//    public static ToolFragment getInstance() {
+//        if (instance == null) {
+//            instance = new ToolFragment();
+//        }
+//        return instance;
+//    }
+//
+////    private ToolFragment() {
+////
+////    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = UiUtils.inflate(R.layout.layout_tool);
-//        final TextView textView = new TextView(getActivity());
-//        textView.setText("这是实用工具");
-//        textView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String json = createDate();
-//                Log.w("json..", json + "...");
-//            }
-//        });
-        String json = createDate();
-        Log.w("json..", json + "...");
+//        String json = createDate();
+//        Log.w("json..", json + "...");
         return view;
     }
 
