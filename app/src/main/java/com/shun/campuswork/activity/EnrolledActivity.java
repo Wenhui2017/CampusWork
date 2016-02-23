@@ -58,5 +58,4 @@ public class EnrolledActivity extends BaseActivity {
             }
         });
     }
-
 }
