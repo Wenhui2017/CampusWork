@@ -16,7 +16,7 @@
  
  
 5、app截图：<br>
- -  主页 : ![screenshot1](https://github.com/shun99/CampusWork/blob/master/Screenshots/S60223-162225.jpg "")
+ -  主页页面 : ![screenshot1](https://github.com/shun99/CampusWork/blob/master/Screenshots/S60223-162225.jpg "")
  -  策划菜单 : ![screenshot1](https://github.com/shun99/CampusWork/blob/master/Screenshots/S60223-151510.jpg "")<br>
  -  招聘信息 : ![screenshot1](https://github.com/shun99/CampusWork/blob/master/Screenshots/S60223-162225.jpg "")
  -  注册页面 : ![screenshot1](https://github.com/shun99/CampusWork/blob/master/Screenshots/S60223-151605.jpg "")<br>
