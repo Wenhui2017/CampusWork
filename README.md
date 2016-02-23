@@ -15,6 +15,6 @@
  -  使用线程管理池，节省了系统的资源。
  
  
-5、app截图：
-![screenshot1](https://github.com/shun99/CampusWork/blob/master/Screenshots/S60223-151510.jpg "")
-![screenshot1](https://github.com/shun99/CampusWork/blob/master/Screenshots/S60223-151542.jpg "")
+5、app截图：<br>
+ -  主页 : ![screenshot1](https://github.com/shun99/CampusWork/blob/master/Screenshots/S60223-151510.jpg "")<br>
+ -  主页 : ![screenshot1](https://github.com/shun99/CampusWork/blob/master/Screenshots/S60223-151510.jpg "")<br>
