@@ -3,6 +3,7 @@ package com.shun.campuswork.fragment;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -52,6 +54,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
     private StringBuffer mFlagTime = new StringBuffer("a");
     private StringBuffer mFlagType = new StringBuffer("a");
     private int moreDatePos = 1;
+    public static Handler mHandler = new Handler();
 
     @ViewInject(R.id.news_tv_time)
     private TextView news_tv_time;
@@ -70,7 +73,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(instance == null){
+        if (instance == null) {
             instance = this;
         }
         View view = UiUtils.inflate(R.layout.layout_news);
@@ -91,7 +94,23 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
 
     private void initUI() {
         mJobInfoList = new ArrayList<>();
-        mNewsContentAdapter = new NewsContentAdapter(mJobInfoList, news_lv_content);
+        mNewsContentAdapter = new NewsContentAdapter(mJobInfoList, news_lv_content, mHandler) {
+            @Override
+            public void LoadMoreDate() {
+                NewsFragment.this.LoadMoreDate();
+            }
+
+            @Override
+            public void setLoadSuccessState() {
+                NewsFragment.this.setLoadSuccessState();
+            }
+
+            @Override
+            public void clickItem(int position) {
+                NewsFragment.this.clickItem(position);
+            }
+        };
+
         news_lv_content.setAdapter(mNewsContentAdapter);
         swipeRefreshLayout.setColorSchemeColors(ColorUtils.refreshColors);
     }
@@ -119,13 +138,8 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
         newsDateProtocol.setOnDateListener(new BaseProtocol.OnDateListener<List<JobInfo>>() {
             @Override
             public void onRefresh(List<JobInfo> jobInfoList) {
-                if (jobInfoList == null) {
-                    ToastUtils.makeText("没有更多");
-                } else {
-                    mNewsContentAdapter.mDateList.addAll(jobInfoList);
-                    setLoadSuccessState();
-                    moreDatePos++;
-                }
+                mNewsContentAdapter.refreshLoadMore(jobInfoList);
+                moreDatePos++;
             }
         });
     }
@@ -134,32 +148,11 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
         news_tv_time.setOnClickListener(this);
         news_tv_type.setOnClickListener(this);
         news_tv_error.setOnClickListener(this);
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 initDate();
-            }
-        });
-        news_lv_content.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                clickItem(position);
-            }
-        });
-
-        /*监听滚动事件*/
-        news_lv_content.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
-                        && news_lv_content.getLastVisiblePosition() == (mNewsContentAdapter.mDateList.size() - 1)) {
-                    LoadMoreDate();
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                mNewsContentAdapter.addFooterView();
             }
         });
     }
@@ -335,5 +328,4 @@ public class NewsFragment extends Fragment implements View.OnClickListener {
         mNewsContentAdapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
     }
-
 }

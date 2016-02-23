@@ -2,6 +2,7 @@ package com.shun.campuswork.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -70,7 +71,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 } else {
                     mHomeAdapter.mDateList.clear();
                     mHomeAdapter.mDateList.addAll(jobInfoList);
-                    setLoadSuccessState/**/();
+                    setLoadSuccessState();
                 }
             }
         });
@@ -133,4 +134,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
 }

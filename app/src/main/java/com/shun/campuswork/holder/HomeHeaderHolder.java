@@ -12,6 +12,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.shun.campuswork.R;
 import com.shun.campuswork.adapter.MyPagerAdapter;
+import com.shun.campuswork.global.GlobalContants;
 import com.shun.campuswork.tools.ToastUtils;
 import com.shun.campuswork.tools.UiUtils;
 import com.shun.campuswork.view.MyHeadViewPager;
@@ -42,7 +43,8 @@ public class HomeHeaderHolder extends BaseHolder {
     public void initDate() {
         mViewList = new ArrayList<View>();
         Context mContext = UiUtils.getContext();
-        int[] mIvR = new int[]{R.mipmap.pic_banner_guoqing, R.mipmap.pic_banner_guoqing_big, R.mipmap.pic_miao_banner};
+        int[] mIvR = GlobalContants.AD;
+        //new int[]{R.mipmap.ad1, R.mipmap.ad2, R.mipmap.ad3, R.mipmap.pic_banner_guoqing_big};
         for (int i = 0; i < mIvR.length; i++) {
             ImageView imageView = new ImageView(mContext);
             imageView.setImageResource(mIvR[i]);

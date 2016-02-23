@@ -1,98 +1,96 @@
 package com.shun.campuswork.adapter;
 
-import android.util.Log;
+import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
+
+import com.shun.campuswork.R;
+import com.shun.campuswork.domain.JobInfo;
+import com.shun.campuswork.tools.ToastUtils;
+import com.shun.campuswork.tools.UiUtils;
+import com.shun.campuswork.view.MyListView;
 
 import java.util.List;
 
 /**
- * Created by shun99 on 2015/11/22.
+ * 对BaseAdapter的封装
+ * 本类已经处理了滚动监听，条目点击监听，加载更多
  */
-public abstract class MyBaseAdapter<T> extends BaseAdapter{
-    public static final int MORE_ITEM = 2;// listview加载更多
-    public static final int HEADER_ITEM = 1;// listview头部
-    public static final int CONTENT_ITEM = 0;//listview内容条目
-    public int mLondingCurrentState;// 当前加载更多的状态
-    public ListView mListView;
+public abstract class MyBaseAdapter extends BaseAdapter implements AbsListView.OnScrollListener, AdapterView.OnItemClickListener {
+    public List<JobInfo> mDateList;
+    public MyListView myListView;
+    private View mFootView;
+    private Handler mHandler;
 
-    public List<T> mDateList;
-    public int addItemType = 0;
-    public boolean isHeadDemo = false;
-    public boolean isEndLoadMore = false;
+    public MyBaseAdapter(List<JobInfo> mDateList, MyListView myListView, Handler handler) {
+        this.mDateList = mDateList;
+        this.myListView = myListView;
+        mHandler = handler;
+        //添加加载更多
+        mFootView = UiUtils.inflate(R.layout.item_lv_more_date);
+        addFooterView();
+        myListView.setOnScrollListener(this);
+        myListView.setOnItemClickListener(this);
+    }
+
+    //===============对外暴露
 
     /**
-     *
-     * @param isHeadDemo
-     *            是否有展示头
-     * @param isEndLoadMore
-     *            是否可以加载更多
-     * @param listView
-     *            使用改适配器的listview
-     * @param dateList
-     *            数据
+     * 添加加载更多
      */
-    public MyBaseAdapter(boolean isHeadDemo, boolean isEndLoadMore,
-                         ListView listView, List<T> dateList) {
-        this.mDateList = dateList;
-        if (isHeadDemo) {
-            this.isHeadDemo = true;
-            addItemType++;
+    public void addFooterView() {
+        if (myListView.getFooterViewsCount() <= 0) {
+            myListView.addFooterView(mFootView);
         }
-        if (isEndLoadMore) {
-            this.isEndLoadMore = true;
-            addItemType++;
+    }
+
+    /**
+     * 刷新加载更多
+     *
+     * @param t
+     */
+    public void refreshLoadMore(List<JobInfo> t) {
+        if (t == null) {
+            myListView.removeFooterView(mFootView);
+            ToastUtils.makeText("没有更多");
+        } else {
+            mDateList.addAll(t);
+            setLoadSuccessState();
         }
-        mListView = listView;
+    }
+
+    public abstract void LoadMoreDate();
+
+    public abstract void setLoadSuccessState();
+
+    public abstract void clickItem(int position);
+
+    //======================事件监听
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        clickItem(position);
     }
 
     @Override
-    public int getCount() {
-        return mDateList.size() + addItemType;
-    }
-
-    /** 根据位置 判断当前条目是什么类型 */
-    @Override
-    public int getItemViewType(int position) {
-        if (isHeadDemo && isEndLoadMore) {// 有头有尾
-            if (position == mDateList.size() + 1) {// 最后一项返回类型MORE_ITEM
-                return MORE_ITEM;
-            } else if (position == 0) {
-                return HEADER_ITEM;
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+            if (view.getLastVisiblePosition() == view.getCount() - 1) {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LoadMoreDate();
+                    }
+                }, 1000);
             }
-            return super.getItemViewType(position + 1);
-        } else if (!isHeadDemo && isEndLoadMore) {// 无头有尾
-            if (position == mDateList.size()) {// 最后一项返回类型MORE_ITEM
-                return MORE_ITEM;
-            }
-            return super.getItemViewType(position);
-        }else if(isHeadDemo && !isEndLoadMore){// 有头无尾
-            if (position == 0) {
-                return HEADER_ITEM;
-            }
-            return CONTENT_ITEM;
         }
-        return CONTENT_ITEM;
-    }
-
-    /** 当前ListView 有几种不同的条目类型 */
-    @Override
-    public int getViewTypeCount() {
-        return 1 + addItemType;
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 
-    @Override
-    public abstract View getView(int position, View convertView, ViewGroup parent);
 }

@@ -85,4 +85,9 @@ public class GlobalContants {
     public static final String getLogUrl(String user, String pwd) {
         return SERVER_URL + user + "_" + pwd + ".json";
     }
+
+    /**
+     * homeFragment头部滑动广告
+     */
+    public static final int[] AD = new int[]{R.mipmap.ad1, R.mipmap.ad2, R.mipmap.ad3, R.mipmap.pic_banner_guoqing_big};
 }

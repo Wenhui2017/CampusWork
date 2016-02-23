@@ -11,6 +11,7 @@ import com.shun.campuswork.holder.BaseHolder;
 import com.shun.campuswork.holder.HomeCenterHolder;
 import com.shun.campuswork.holder.HomeContentHolder;
 import com.shun.campuswork.holder.HomeHeaderHolder;
+import com.shun.campuswork.holder.MoreHolder;
 import com.shun.campuswork.holder.NewsHolder;
 import com.shun.campuswork.tools.UiUtils;
 
@@ -22,11 +23,13 @@ import java.util.List;
 public class HomeAdapter extends BaseAdapter {
     public ListView mListView;
     public List<JobInfo> mDateList;
+//    private int mAddType = 0;
+//    private final int LOAD_MORE = 100;
+
 
     public HomeAdapter(ListView mListView, List<JobInfo> mDateList) {
         this.mListView = mListView;
         this.mDateList = mDateList;
-
     }
 
     @Override

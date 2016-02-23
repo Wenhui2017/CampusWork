@@ -1,8 +1,8 @@
 package com.shun.campuswork.adapter;
 
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import com.shun.campuswork.domain.JobInfo;
 import com.shun.campuswork.holder.NewsHolder;
@@ -10,16 +10,11 @@ import com.shun.campuswork.view.MyListView;
 
 import java.util.List;
 
-/**
- * Created by shun99 on 2016/2/14.
- */
-public class NewsContentAdapter extends BaseAdapter{
-    public List<JobInfo> mDateList;
-    private MyListView myListView;
 
-    public NewsContentAdapter(List<JobInfo> mDateList, MyListView myListView) {
-        this.mDateList = mDateList;
-        this.myListView = myListView;
+public abstract class NewsContentAdapter extends MyBaseAdapter {
+
+    public NewsContentAdapter(List<JobInfo> mDateList, MyListView myListView, Handler handler) {
+        super(mDateList, myListView, handler);
     }
 
     @Override
